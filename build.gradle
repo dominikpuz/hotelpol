@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'application'
 
 
 description = """
@@ -13,6 +14,8 @@ Maria Nowak <mnowak@student.agh.edu.pl> """
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 version = '0.1'
+
+mainClassName = 'pl.edu.agh.to2.example.Main'
 
 repositories {
     mavenCentral()
