@@ -1,28 +1,35 @@
-apply plugin: 'java'
-apply plugin: 'application'
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
 
+group 'pl.edu.agh.to2'
+version '1.0-SNAPSHOT'
 
-description = """
-Example project for a TO2 course.
-
-Project name: ${project.name}
-
-Authors:
-Jan Kowalski <jkowalski@student.agh.edu.pl>
-Maria Nowak <mnowak@student.agh.edu.pl> """
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-version = '0.1'
-
-mainClassName = 'pl.edu.agh.to2.example.Main'
+apply plugin: 'org.openjfx.javafxplugin'
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.+'
+application {
+    mainClassName = 'Main'
+}
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
+javafx {
+    version = '17'
+    modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media', 'javafx.swing', 'javafx.web']
+}
 
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.1'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.1'
+}
