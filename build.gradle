@@ -36,8 +36,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'com.microsoft.sqlserver:mssql-jdbc'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.1'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.1'
 }
 
 tasks.named('bootBuildImage') {
