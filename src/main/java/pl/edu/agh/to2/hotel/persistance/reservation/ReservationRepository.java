@@ -7,9 +7,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+public interface ReservationRepository extends JpaRepository<ReservationEntity, Long> {
 
-    List<Reservation> findReservationsByEndDateEquals(LocalDate endDate);
+    List<ReservationEntity> findReservationsByEndDateEquals(LocalDate endDate);
 
-    List<Reservation> findReservationsByStartDateEquals(LocalDate startDate);
+    List<ReservationEntity> findReservationsByStartDateEquals(LocalDate startDate);
 }

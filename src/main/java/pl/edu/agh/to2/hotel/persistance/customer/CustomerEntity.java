@@ -12,7 +12,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Customer {
+public class CustomerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class Customer {
     private String email;
 
 
-    public Customer(String firstName, String lastName, String phoneNumber, String email) {
+    public CustomerEntity(String firstName, String lastName, String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
@@ -54,7 +54,7 @@ public class Customer {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Customer customer = (Customer) o;
+        CustomerEntity customer = (CustomerEntity) o;
         return Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) &&
                 Objects.equals(phoneNumber, customer.phoneNumber) && Objects.equals(email, customer.email);
     }
