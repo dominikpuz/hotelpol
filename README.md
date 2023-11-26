@@ -1,4 +1,4 @@
-# Hotelpol
+# HotelPol
 
 Repository for Object-oriented technologies course at AGH UST.
 
