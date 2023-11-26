@@ -32,11 +32,24 @@ test {
 }
 
 dependencies {
+    // --------------- MAIN ------------------
+    // spring boot and database
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'com.microsoft.sqlserver:mssql-jdbc'
+
+    // lombok for src compilation
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // --------------- TESTS -----------------
+    // spring boot and database for tests
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.h2database:h2'
+
+    // lombok for tests
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('bootBuildImage') {
