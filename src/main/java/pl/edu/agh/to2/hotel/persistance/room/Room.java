@@ -1,6 +1,9 @@
 package pl.edu.agh.to2.hotel.persistance.room;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pl.edu.agh.to2.hotel.persistance.StringBedTypeListConverter;
 
 import java.util.List;
@@ -8,6 +11,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ROOMS")
+@NoArgsConstructor
+@Getter
+@Setter
 public class Room {
 
     @Id
@@ -37,57 +43,6 @@ public class Room {
         this.floor = floor;
         this.beds = beds;
         this.roomStandard = roomStandard;
-        this.rentPrice = rentPrice;
-    }
-
-    public Room() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getRoomNumber() {
-        return roomNumber;
-    }
-
-    public int getFloor() {
-        return floor;
-    }
-
-    public List<BedType> getBeds() {
-        return beds;
-    }
-
-    public RoomStandard getRoomStandard() {
-        return roomStandard;
-    }
-
-    public double getRentPrice() {
-        return rentPrice;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-
-    public void setFloor(int floor) {
-        this.floor = floor;
-    }
-
-    public void setBeds(List<BedType> beds) {
-        this.beds = beds;
-    }
-
-    public void setRoomStandard(RoomStandard roomStandard) {
-        this.roomStandard = roomStandard;
-    }
-
-    public void setRentPrice(double rentPrice) {
         this.rentPrice = rentPrice;
     }
 

@@ -1,6 +1,9 @@
 package pl.edu.agh.to2.hotel.persistance.reservation;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pl.edu.agh.to2.hotel.persistance.customer.Customer;
 import pl.edu.agh.to2.hotel.persistance.room.Room;
 
@@ -9,6 +12,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "RESERVATIONS")
+@NoArgsConstructor
+@Getter
+@Setter
 public class Reservation {
 
     @Id
@@ -34,9 +40,6 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     private ReservationState state;
 
-    public Reservation() {
-    }
-
     public Reservation(Room room, Customer customer, LocalDate startDate, LocalDate endDate, ReservationState state) {
         this.room = room;
         this.customer = customer;
@@ -53,60 +56,12 @@ public class Reservation {
         this(room, customer, startDate, startDate.plusDays(days));
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public ReservationState getState() {
-        return state;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public void setState(ReservationState state) {
-        this.state = state;
-    }
-
     @Override
     public String toString() {
         return "Reservation{" +
                 "id=" + id +
-                ", room=" + room +
-                ", customer=" + customer +
+                ", room=" + room.getId() +
+                ", customer=" + customer.getId() +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", state=" + state +
