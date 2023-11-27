@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.edu.agh.to2.hotel.persistance.customer.Customer;
-import pl.edu.agh.to2.hotel.persistance.room.Room;
+import pl.edu.agh.to2.hotel.persistance.customer.CustomerEntity;
+import pl.edu.agh.to2.hotel.persistance.room.RoomEntity;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -15,7 +15,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Reservation {
+public class ReservationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +24,11 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "room_id")
-    private Room room;
+    private RoomEntity room;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private CustomerEntity customer;
 
     @Column(name = "start_date")
     private LocalDate startDate;
@@ -40,7 +40,7 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     private ReservationState state;
 
-    public Reservation(Room room, Customer customer, LocalDate startDate, LocalDate endDate, ReservationState state) {
+    public ReservationEntity(RoomEntity room, CustomerEntity customer, LocalDate startDate, LocalDate endDate, ReservationState state) {
         this.room = room;
         this.customer = customer;
         this.startDate = startDate;
@@ -48,11 +48,11 @@ public class Reservation {
         this.state = state;
     }
 
-    public Reservation(Room room, Customer customer, LocalDate startDate, LocalDate endDate) {
+    public ReservationEntity(RoomEntity room, CustomerEntity customer, LocalDate startDate, LocalDate endDate) {
         this(room, customer, startDate, endDate, ReservationState.CREATED);
     }
 
-    public Reservation(Room room, Customer customer, LocalDate startDate, int days) {
+    public ReservationEntity(RoomEntity room, CustomerEntity customer, LocalDate startDate, int days) {
         this(room, customer, startDate, startDate.plusDays(days));
     }
 
@@ -72,7 +72,7 @@ public class Reservation {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Reservation that = (Reservation) o;
+        ReservationEntity that = (ReservationEntity) o;
         return Objects.equals(room, that.room) && Objects.equals(customer, that.customer) &&
                 Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate) && state == that.state;
     }

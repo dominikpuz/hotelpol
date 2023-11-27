@@ -8,10 +8,10 @@ import java.util.Optional;
 
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
+public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> {
 
-    Optional<Customer> findCustomerByEmailEqualsIgnoreCase(String email);
+    Optional<CustomerEntity> findCustomerByEmailEqualsIgnoreCase(String email);
 
-    @Query("SELECT C FROM Customer C WHERE C.firstName ILIKE :firstName AND C.lastName ILIKE :lastName")
-    Optional<Customer> findCustomerByFirstNameAndLastName_IgnoreCase(String firstName, String lastName);
+    @Query("SELECT C FROM CustomerEntity C WHERE C.firstName ILIKE :firstName AND C.lastName ILIKE :lastName")
+    Optional<CustomerEntity> findCustomerByFirstNameAndLastName_IgnoreCase(String firstName, String lastName);
 }

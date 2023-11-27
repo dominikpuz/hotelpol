@@ -14,7 +14,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Room {
+public class RoomEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +38,7 @@ public class Room {
     @Column(name = "rent_price", nullable = false)
     private double rentPrice;
 
-    public Room(String roomNumber, int floor, List<BedType> beds, RoomStandard roomStandard, double rentPrice) {
+    public RoomEntity(String roomNumber, int floor, List<BedType> beds, RoomStandard roomStandard, double rentPrice) {
         this.roomNumber = roomNumber;
         this.floor = floor;
         this.beds = beds;
@@ -62,7 +62,7 @@ public class Room {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Room room = (Room) o;
+        RoomEntity room = (RoomEntity) o;
         return floor == room.floor && Double.compare(room.rentPrice, rentPrice) == 0 && Objects.equals(roomNumber, room.roomNumber) && Objects.equals(beds, room.beds) && roomStandard == room.roomStandard;
     }
 

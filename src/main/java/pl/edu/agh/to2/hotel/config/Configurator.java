@@ -4,13 +4,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import pl.edu.agh.to2.hotel.persistance.customer.Customer;
+import pl.edu.agh.to2.hotel.persistance.customer.CustomerEntity;
 import pl.edu.agh.to2.hotel.persistance.customer.CustomerRepository;
-import pl.edu.agh.to2.hotel.persistance.reservation.Reservation;
+import pl.edu.agh.to2.hotel.persistance.reservation.ReservationEntity;
 import pl.edu.agh.to2.hotel.persistance.reservation.ReservationRepository;
 import pl.edu.agh.to2.hotel.persistance.room.BedType;
 import pl.edu.agh.to2.hotel.persistance.room.RoomStandard;
-import pl.edu.agh.to2.hotel.persistance.room.Room;
+import pl.edu.agh.to2.hotel.persistance.room.RoomEntity;
 import pl.edu.agh.to2.hotel.persistance.room.RoomRepository;
 
 import java.time.LocalDate;
@@ -25,23 +25,23 @@ public class Configurator {
     CommandLineRunner commandLineRunner(RoomRepository roomRepository, CustomerRepository customerRepository, ReservationRepository reservationRepository) {
         return args -> {
             if (roomRepository.count() == 0) {
-                Room room = new Room("202A", 2, Arrays.asList(BedType.SINGLE_BED, BedType.DOUBLE_BED), RoomStandard.EXCLUSIVE, 200.0);
+                RoomEntity room = new RoomEntity("202A", 2, Arrays.asList(BedType.SINGLE_BED, BedType.DOUBLE_BED), RoomStandard.EXCLUSIVE, 200.0);
                 roomRepository.save(room);
-                Room room2 = new Room("305", 3, Arrays.asList(BedType.SINGLE_BED, BedType.SINGLE_BED), RoomStandard.CLASSIC, 130.0);
+                RoomEntity room2 = new RoomEntity("305", 3, Arrays.asList(BedType.SINGLE_BED, BedType.SINGLE_BED), RoomStandard.CLASSIC, 130.0);
                 roomRepository.save(room2);
 
-                Customer customer = new Customer("Jan", "Kowalski", "123321345", "jankowalski@gmail.com");
+                CustomerEntity customer = new CustomerEntity("Jan", "Kowalski", "123321345", "jankowalski@gmail.com");
                 customerRepository.save(customer);
-                Customer customer2 = new Customer("Natalia", "Wrona", "+48654982032", "natalia123@wp.pl");
+                CustomerEntity customer2 = new CustomerEntity("Natalia", "Wrona", "+48654982032", "natalia123@wp.pl");
                 customerRepository.save(customer2);
 
-                Reservation reservation = new Reservation(room, customer, LocalDate.of(2023, 11, 25), LocalDate.of(2023, 11, 30));
+                ReservationEntity reservation = new ReservationEntity(room, customer, LocalDate.of(2023, 11, 25), LocalDate.of(2023, 11, 30));
                 reservationRepository.save(reservation);
 
-                Reservation reservation1 = new Reservation(room, customer2, LocalDate.of(2023, 11, 20), LocalDate.of(2023, 11, 27));
+                ReservationEntity reservation1 = new ReservationEntity(room, customer2, LocalDate.of(2023, 11, 20), LocalDate.of(2023, 11, 27));
                 reservationRepository.save(reservation1);
 
-                List<Room> availableRoomsBetweenDates = roomRepository.findAvailableRoomsBetweenDates(LocalDate.of(2023, 11, 20), LocalDate.of(2023, 11, 23));
+                List<RoomEntity> availableRoomsBetweenDates = roomRepository.findAvailableRoomsBetweenDates(LocalDate.of(2023, 11, 20), LocalDate.of(2023, 11, 23));
                 availableRoomsBetweenDates.forEach(System.out::println);
             }
         };

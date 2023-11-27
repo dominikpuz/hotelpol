@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface RoomRepository extends JpaRepository<Room, Long> {
+public interface RoomRepository extends JpaRepository<RoomEntity, Long> {
 
-    @Query("SELECT r FROM Room r WHERE r.id NOT IN (SELECT DISTINCT res.room.id FROM Reservation res WHERE (:startDate <= res.startDate AND res.startDate < :endDate) OR (:startDate < res.endDate AND res.endDate <= :endDate))")
-    List<Room> findAvailableRoomsBetweenDates(LocalDate startDate, LocalDate endDate);
+    @Query("SELECT r FROM RoomEntity r WHERE r.id NOT IN (SELECT DISTINCT res.room.id FROM ReservationEntity res WHERE (:startDate <= res.startDate AND res.startDate < :endDate) OR (:startDate < res.endDate AND res.endDate <= :endDate))")
+    List<RoomEntity> findAvailableRoomsBetweenDates(LocalDate startDate, LocalDate endDate);
 
-    Optional<Room> findRoomByRoomNumberAndFloor(String roomNumber, int floor);
+    Optional<RoomEntity> findRoomByRoomNumberAndFloor(String roomNumber, int floor);
 
 }
