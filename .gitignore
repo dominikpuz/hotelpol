@@ -1,5 +1,5 @@
 .gradle/
 /build/
 /bin/
-/src/main/resources/application-dev.properties
 /.idea/
+/database/

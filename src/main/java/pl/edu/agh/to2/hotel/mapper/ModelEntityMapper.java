@@ -13,6 +13,9 @@ import pl.edu.agh.to2.hotel.persistance.room.RoomEntity;
 @Component
 public class ModelEntityMapper extends ModelMapper {
     public ModelEntityMapper() {
+        // Prepare the mapper by configuring it
+
+        // CustomerEntity to Customer mapping
         Converter<CustomerEntity, Customer> customerConverter = context -> {
             CustomerEntity customerEntity = context.getSource();
             return new Customer(customerEntity.getId(), customerEntity.getFirstName(),
@@ -20,6 +23,7 @@ public class ModelEntityMapper extends ModelMapper {
         };
         this.createTypeMap(CustomerEntity.class, Customer.class).setConverter(customerConverter);
 
+        // RoomEntity to Room mapping
         Converter<RoomEntity, Room> roomConverter = context -> {
           RoomEntity roomEntity = context.getSource();
           return new Room(roomEntity.getId(), roomEntity.getRoomNumber(), roomEntity.getFloor(), roomEntity.getBeds(),
@@ -27,6 +31,7 @@ public class ModelEntityMapper extends ModelMapper {
         };
         this.createTypeMap(RoomEntity.class, Room.class).setConverter(roomConverter);
 
+        // ReservationEntity to Reservation mapping
         Converter<ReservationEntity, Reservation> reservationConverter = context -> {
           ReservationEntity reservationEntity = context.getSource();
           Room room = this.map(reservationEntity.getRoom(), Room.class);

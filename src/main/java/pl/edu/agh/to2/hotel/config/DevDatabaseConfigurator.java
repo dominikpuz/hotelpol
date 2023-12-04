@@ -17,10 +17,12 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class used for development purposes. It fills the database with sample data
+ */
 @Configuration
 @Profile("dev")
-public class Configurator {
-
+public class DevDatabaseConfigurator {
     @Bean
     CommandLineRunner commandLineRunner(RoomRepository roomRepository, CustomerRepository customerRepository, ReservationRepository reservationRepository) {
         return args -> {
