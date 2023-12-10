@@ -1,9 +1,7 @@
 package pl.edu.agh.to2.hotel.persistance.log;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pl.edu.agh.to2.hotel.persistance.reservation.ReservationEntity;
 import pl.edu.agh.to2.hotel.persistance.reservation.ReservationState;
 
@@ -13,7 +11,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "RESERVATION_LOGS")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
 @Setter
 public class ReservationLogEntity {

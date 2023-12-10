@@ -7,15 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.edu.agh.to2.hotel.TestUtils;
 import pl.edu.agh.to2.hotel.model.Customer;
+import pl.edu.agh.to2.hotel.model.Log;
 import pl.edu.agh.to2.hotel.model.Reservation;
 import pl.edu.agh.to2.hotel.model.Room;
 import pl.edu.agh.to2.hotel.persistance.customer.CustomerEntity;
+import pl.edu.agh.to2.hotel.persistance.log.ReservationLogEntity;
 import pl.edu.agh.to2.hotel.persistance.reservation.ReservationEntity;
 import pl.edu.agh.to2.hotel.persistance.reservation.ReservationState;
 import pl.edu.agh.to2.hotel.persistance.room.RoomEntity;
 import pl.edu.agh.to2.hotel.persistance.room.RoomStandard;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,12 +30,15 @@ import static pl.edu.agh.to2.hotel.persistance.room.BedType.SINGLE_BED;
 public class ModelMapperTest {
     @Autowired
     private ModelEntityMapper modelMapper;
+
     private RoomEntity sampleRoomEntity;
     private Room sampleRoom;
     private CustomerEntity sampleCustomerEntity;
     private Customer sampleCustomer;
     private ReservationEntity sampleReservationEntity;
     private Reservation sampleReservation;
+    private ReservationLogEntity sampleReservationLogEntity;
+    private Log sampleLog;
 
     @BeforeEach
     public void init() {
@@ -44,60 +50,67 @@ public class ModelMapperTest {
 
         sampleReservationEntity = new ReservationEntity(sampleRoomEntity, sampleCustomerEntity, LocalDate.now(), LocalDate.now().plusDays(2), ReservationState.CREATED);
         sampleReservation = new Reservation(1, sampleRoom, sampleCustomer, LocalDate.now(), LocalDate.now().plusDays(3), ReservationState.CREATED);
+
+        LocalDateTime logDate = LocalDateTime.now();
+        sampleReservationLogEntity = new ReservationLogEntity(1, logDate, sampleReservationEntity, ReservationState.PAID);
+        sampleLog = new Log(1, logDate, sampleReservation, ReservationState.PAID);
     }
 
     @Test
     public void customerEntityToCustomer() {
-        Customer customer = modelMapper.map(sampleCustomerEntity, Customer.class);
+        Customer customer = modelMapper.mapCustomerFromEntity(sampleCustomerEntity);
 
         assertCustomerEntityAndCustomerAreEqual(sampleCustomerEntity, customer);
     }
 
     @Test
     public void customerToCustomerEntity() {
-        CustomerEntity customerEntity = modelMapper.map(sampleCustomer, CustomerEntity.class);
+        CustomerEntity customerEntity = modelMapper.mapCustomerToEntity(sampleCustomer);
 
         assertCustomerEntityAndCustomerAreEqual(customerEntity, sampleCustomer);
     }
 
     @Test
     public void roomEntityToRoom() {
-        Room room = modelMapper.map(sampleRoomEntity, Room.class);
+        Room room = modelMapper.mapRoomFromEntity(sampleRoomEntity);
 
         assertRoomEntityAndRoomAreEqual(sampleRoomEntity, room);
     }
 
     @Test
     public void roomToRoomEntity() {
-        RoomEntity roomEntity = modelMapper.map(sampleRoom, RoomEntity.class);
+        RoomEntity roomEntity = modelMapper.mapRoomToEntity(sampleRoom);
 
         assertRoomEntityAndRoomAreEqual(roomEntity, sampleRoom);
     }
 
     @Test
     public void reservationEntityToReservation() {
-        Reservation reservation = modelMapper.map(sampleReservationEntity, Reservation.class);
+        Reservation reservation = modelMapper.mapReservationFromEntity(sampleReservationEntity);
 
-        assertEquals(sampleReservationEntity.getId(), reservation.getId());
-        assertRoomEntityAndRoomAreEqual(sampleReservationEntity.getRoom(), reservation.getRoom());
-        assertCustomerEntityAndCustomerAreEqual(sampleReservationEntity.getCustomer(), reservation.getCustomer());
-        assertEquals(sampleReservationEntity.getStartDate(), reservation.getStartDate());
-        assertEquals(sampleReservationEntity.getEndDate(), reservation.getEndDate());
-        assertEquals(sampleReservationEntity.getState(), reservation.getState());
+        assertReservationEntityAndReservationAreEqual(sampleReservationEntity, reservation);
     }
 
     @Test
     public void reservationToReservationEntity() {
-        ReservationEntity reservationEntity = modelMapper.map(sampleReservation, ReservationEntity.class);
+        ReservationEntity reservationEntity = modelMapper.mapReservationToEntity(sampleReservation);
 
-        assertEquals(reservationEntity.getId(), sampleReservation.getId());
-        assertRoomEntityAndRoomAreEqual(reservationEntity.getRoom(), sampleReservation.getRoom());
-        assertCustomerEntityAndCustomerAreEqual(reservationEntity.getCustomer(), sampleReservation.getCustomer());
-        assertEquals(reservationEntity.getStartDate(), sampleReservation.getStartDate());
-        assertEquals(reservationEntity.getEndDate(), sampleReservation.getEndDate());
-        assertEquals(reservationEntity.getState(), sampleReservation.getState());
+        assertReservationEntityAndReservationAreEqual(reservationEntity, sampleReservation);
     }
 
+    @Test
+    public void reservationLogEntityToLog() {
+        Log log = modelMapper.mapLogFromEntity(sampleReservationLogEntity);
+
+        assertReservationLogEntityAndLogAreEqual(sampleReservationLogEntity, log);
+    }
+
+    @Test
+    public void logToReservationLogEntity() {
+        ReservationLogEntity reservationLogEntity = modelMapper.mapLogToEntity(sampleLog);
+
+        assertReservationLogEntityAndLogAreEqual(reservationLogEntity, sampleLog);
+    }
     private void assertRoomEntityAndRoomAreEqual(RoomEntity roomEntity, Room room) {
         assertEquals(roomEntity.getId(), room.getId());
         assertEquals(roomEntity.getRoomNumber(), room.getRoomNumber());
@@ -113,5 +126,21 @@ public class ModelMapperTest {
         assertEquals(customerEntity.getLastName(), customer.getLastName());
         assertEquals(customerEntity.getPhoneNumber(), customer.getPhoneNumber());
         assertEquals(customerEntity.getEmail(), customer.getEmail());
+    }
+
+    private void assertReservationEntityAndReservationAreEqual(ReservationEntity reservationEntity, Reservation reservation) {
+        assertEquals(reservationEntity.getId(), reservation.getId());
+        assertRoomEntityAndRoomAreEqual(reservationEntity.getRoom(), reservation.getRoom());
+        assertCustomerEntityAndCustomerAreEqual(reservationEntity.getCustomer(), reservation.getCustomer());
+        assertEquals(reservationEntity.getStartDate(), reservation.getStartDate());
+        assertEquals(reservationEntity.getEndDate(), reservation.getEndDate());
+        assertEquals(reservationEntity.getState(), reservation.getState());
+    }
+
+    private void assertReservationLogEntityAndLogAreEqual(ReservationLogEntity logEntity, Log log) {
+        assertEquals(logEntity.getId(), log.id());
+        assertReservationEntityAndReservationAreEqual(logEntity.getReservation(), log.reservation());
+        assertEquals(logEntity.getDate(), log.date());
+        assertEquals(logEntity.getUpdatedState(), log.updatedState());
     }
 }
