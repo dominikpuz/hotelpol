@@ -36,10 +36,10 @@ public class ModelMapperTest {
 
     @BeforeEach
     public void init() {
-        sampleRoomEntity = TestUtils.sampleRoomEntity1;
+        sampleRoomEntity = TestUtils.createRoomEntity1();
         sampleRoom =  new Room(1, "305A", 3,Arrays.asList(SINGLE_BED, DOUBLE_BED), RoomStandard.EXCLUSIVE, 200.0);
 
-        sampleCustomerEntity = TestUtils.sampleCustomerEntity1;
+        sampleCustomerEntity = TestUtils.createCustomerEntity1();
         sampleCustomer = new Customer(1, "Jan", "Kowalski", "123456789", "jkowlaski@abc.com");
 
         sampleReservationEntity = new ReservationEntity(sampleRoomEntity, sampleCustomerEntity, LocalDate.now(), LocalDate.now().plusDays(2), ReservationState.CREATED);

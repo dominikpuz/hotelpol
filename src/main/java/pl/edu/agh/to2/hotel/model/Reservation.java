@@ -38,6 +38,10 @@ public class Reservation {
         this.state = new SimpleObjectProperty<>(state);
     }
 
+    public Reservation(Room room, Customer customer, LocalDate startDate, int days) {
+        this(-1, room, customer, startDate, startDate.plusDays(days), ReservationState.CREATED);
+    }
+
     public Room getRoom() {
         return room.get();
     }
