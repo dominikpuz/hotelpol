@@ -1,9 +1,7 @@
 package pl.edu.agh.to2.hotel.persistance.room;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pl.edu.agh.to2.hotel.persistance.StringBedTypeListConverter;
 
 import java.util.List;
@@ -11,7 +9,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ROOMS")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
 @Setter
 public class RoomEntity {

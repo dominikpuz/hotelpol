@@ -1,15 +1,14 @@
 package pl.edu.agh.to2.hotel.persistance.customer;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "CUSTOMERS")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
 @Setter
 public class CustomerEntity {
