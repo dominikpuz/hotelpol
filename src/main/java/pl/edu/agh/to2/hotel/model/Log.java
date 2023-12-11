@@ -12,6 +12,6 @@ public record Log(
 ) {
 
     public Log(LocalDateTime date, Reservation reservation, ReservationState updatedState) {
-        this(0, date, reservation, updatedState);
+        this(-1, date, reservation, updatedState);
     }
 }

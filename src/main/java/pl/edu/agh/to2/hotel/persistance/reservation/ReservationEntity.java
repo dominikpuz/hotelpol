@@ -1,9 +1,7 @@
 package pl.edu.agh.to2.hotel.persistance.reservation;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pl.edu.agh.to2.hotel.persistance.customer.CustomerEntity;
 import pl.edu.agh.to2.hotel.persistance.room.RoomEntity;
 
@@ -12,7 +10,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "RESERVATIONS")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
 @Setter
 public class ReservationEntity {
