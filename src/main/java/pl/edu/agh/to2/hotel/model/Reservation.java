@@ -32,4 +32,8 @@ public class Reservation {
     public Reservation(Room room, Customer customer, LocalDate startDate, int days) {
         this(-1, room, customer, startDate, startDate.plusDays(days), ReservationState.CREATED);
     }
+
+    public Reservation() {
+        id = -1;
+    }
 }

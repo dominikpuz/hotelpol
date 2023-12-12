@@ -29,4 +29,8 @@ public class Room {
         this.roomStandard = roomStandard;
         this.rentPrice = rentPrice;
     }
+
+    public Room() {
+        id = -1;
+    }
 }
