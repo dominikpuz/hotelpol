@@ -5,7 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Customer {
+public class Customer implements IPresentableModel {
+
     private final long id;
     private String firstName;
     private String lastName;

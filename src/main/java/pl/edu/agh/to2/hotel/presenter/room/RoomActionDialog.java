@@ -5,16 +5,14 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.model.Room;
 import pl.edu.agh.to2.hotel.persistance.room.BedType;
 import pl.edu.agh.to2.hotel.persistance.room.RoomStandard;
+import pl.edu.agh.to2.hotel.presenter.ActionDialogPresenter;
 
 @Component
-public class RoomEditDialog {
+public class RoomActionDialog extends ActionDialogPresenter<Room> {
     @FXML
     public Button addBedButton;
     @FXML
@@ -31,19 +29,9 @@ public class RoomEditDialog {
     public TextField rentPriceField;
     @FXML
     public Button removeBedButton;
-    private Stage dialogStage;
-    @Setter
-    private Room room;
-    @Getter
-    private boolean approved;
 
-    public RoomEditDialog() {
+    public RoomActionDialog() {
         approved = false;
-    }
-
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-        initializeControls();
     }
 
     @FXML
@@ -56,43 +44,37 @@ public class RoomEditDialog {
         bedChoiceBox.setValue(BedType.SINGLE_BED);
     }
 
-    public void initializeControls() {
-        if (room.getId() != -1) {
-            roomNumberField.setText(room.getRoomNumber());
-            floorField.setText(String.valueOf(room.getFloor()));
-            rentPriceField.setText(String.valueOf(room.getRentPrice()));
-            standardBox.setValue(room.getRoomStandard());
-            bedList.setItems(FXCollections.observableArrayList(room.getBeds()));
-        }
+    @Override
+    public void loadData() {
+        roomNumberField.setText(model.getRoomNumber());
+        floorField.setText(String.valueOf(model.getFloor()));
+        rentPriceField.setText(String.valueOf(model.getRentPrice()));
+        standardBox.setValue(model.getRoomStandard());
+        bedList.setItems(FXCollections.observableArrayList(model.getBeds()));
     }
 
-    private void updateModel() {
-        room.setRoomNumber(roomNumberField.getText());
-        room.setFloor(Integer.parseInt(floorField.getText()));
-        room.setRoomStandard(standardBox.getValue());
-        room.setRentPrice(Double.parseDouble(rentPriceField.getText()));
-        room.setBeds(bedList.getItems());
+    @Override
+    public boolean isAddingDialog() {
+        return model.getId() == -1;
     }
 
-    @FXML
-    public void handleOkAction(ActionEvent actionEvent) {
-        updateModel();
-        approved = true;
-        dialogStage.close();
-    }
-
-    @FXML
-    public void handleCancelAction(ActionEvent actionEvent) {
-        dialogStage.close();
+    @Override
+    public boolean validateAndSubmitModel() {
+        model.setRoomNumber(roomNumberField.getText());
+        model.setFloor(Integer.parseInt(floorField.getText()));
+        model.setRoomStandard(standardBox.getValue());
+        model.setRentPrice(Double.parseDouble(rentPriceField.getText()));
+        model.setBeds(bedList.getItems());
+        return true;
     }
 
     @FXML
-    public void handleAddBedAction(ActionEvent actionEvent) {
+    public void handleAddBedAction(ActionEvent ignored) {
         bedList.getItems().add(bedChoiceBox.getValue());
     }
 
     @FXML
-    public void handleRemoveBedAction(ActionEvent actionEvent) {
+    public void handleRemoveBedAction(ActionEvent ignored) {
         BedType bed = bedList.getSelectionModel().getSelectedItem();
         bedList.getItems().remove(bed);
     }

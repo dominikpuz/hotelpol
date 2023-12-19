@@ -30,8 +30,48 @@ Application for managing rooms and hotel reservations.
   - H2 (development and testing purposes)
 
 ## Database Diagram
-
 ![database diagram](documentation/database_diagram.png)
+
+## Milestones
+
+Below we describe layers developed and features added at each milestone.
+
+### Milestone 1
+
+This milestone was all about project setup and persistence layer.
+
+Things we have dealt with:
+  - set up the app using SpringBoot and JavaFX frameworks
+  - adopted the code-first persistence approach
+  - chose H2 and Microsoft SQL databases (as mentioned in the [Technologies section](#technologies))
+  - defined ['prod'](#production---prod) and ['dev'](#development---dev) Spring profiles 
+  - created persistence models layer (entities)
+  - created business / logic models layer
+  - defined mapper to map objects between these layers
+  - spiced everything up with a hefty amount of unit tests
+
+### Milestone 2
+
+The goal for this milestone was to have a simple but complete data flow
+from the persistence layer all the way to the GUI and vice versa.
+
+Features we have introduced:
+  - persistence layer
+    - new repository methods for database queries
+  - simple service layer
+    - finding / getting model objects
+    - finding by 'important' properties (e.g. end date of a reservation)
+    - creating and persisting new objects
+    - updating existing objects
+  - basic controllers layer
+    - managing stages and scenes
+    - data overview: simple tables
+    - dialogs for:
+      - detailed object info
+      - creating new objects
+      - updating existing objects
+  - simple graphical user interface
+    - defined scenes (main view, overviews, dialogs) with .fxml files
 
 ## How to Run
 

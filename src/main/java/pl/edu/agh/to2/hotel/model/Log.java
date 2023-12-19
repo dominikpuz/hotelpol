@@ -9,7 +9,7 @@ public record Log(
         LocalDateTime date,
         Reservation reservation,
         ReservationState updatedState
-) {
+) implements IPresentableModel {
 
     public Log(LocalDateTime date, Reservation reservation, ReservationState updatedState) {
         this(-1, date, reservation, updatedState);

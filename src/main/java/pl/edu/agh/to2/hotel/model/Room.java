@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Room {
+public class Room implements IPresentableModel {
     private final long id;
     private String roomNumber;
     private int floor;

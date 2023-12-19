@@ -2,26 +2,26 @@ package pl.edu.agh.to2.hotel;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import pl.edu.agh.to2.hotel.fxml.FxmlContext;
+import pl.edu.agh.to2.hotel.fxml.FxmlContextProvider;
 import pl.edu.agh.to2.hotel.presenter.MainView;
 
-import java.io.IOException;
+import static pl.edu.agh.to2.hotel.fxml.FxmlContextType.MAIN_VIEW;
 
 public class App extends Application  {
     private ConfigurableApplicationContext applicationContext;
-    private FXMLLoaderProvider fxmlLoaderProvider;
+    private FxmlContextProvider fxmlContextProvider;
 
 
     @Override
     public void init() {
         applicationContext = new SpringApplicationBuilder(Main.class).run();
-        fxmlLoaderProvider = new FXMLLoaderProvider();
-        fxmlLoaderProvider.setApplicationContext(applicationContext);
+        fxmlContextProvider = new FxmlContextProvider();
+        fxmlContextProvider.setApplicationContext(applicationContext);
     }
 
     @Override
@@ -31,14 +31,13 @@ public class App extends Application  {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader = fxmlLoaderProvider.load("MainView");
-        Parent root = fxmlLoader.load();
-        MainView mainView = fxmlLoader.getController();
+    public void start(Stage primaryStage) {
+        FxmlContext<MainView> mainContext = fxmlContextProvider.load(MAIN_VIEW);
+
         primaryStage.setTitle("HotelPol");
-        Scene scene = new Scene(root, 800, 400);
+        Scene scene = new Scene(mainContext.view(), 800, 400);
         primaryStage.setScene(scene);
-        mainView.setPrimaryStage(primaryStage);
+        mainContext.controller().setPrimaryStage(primaryStage);
         primaryStage.show();
     }
 }

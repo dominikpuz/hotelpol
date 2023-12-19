@@ -32,4 +32,8 @@ public enum ReservationState {
     public boolean canChangeTo(ReservationState nextState) {
         return nextState.availablePreviousStates.contains(this);
     }
+
+    public List<ReservationState> getAvailableNextStates() {
+        return Arrays.stream(values()).filter(this::canChangeTo).toList();
+    }
 }

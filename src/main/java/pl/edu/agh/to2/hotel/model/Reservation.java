@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class Reservation {
+public class Reservation implements IPresentableModel {
     private final long id;
     private Room room;
     private Customer customer;

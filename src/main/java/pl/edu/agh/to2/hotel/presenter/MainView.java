@@ -1,28 +1,31 @@
 package pl.edu.agh.to2.hotel.presenter;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pl.edu.agh.to2.hotel.FXMLLoaderProvider;
+import pl.edu.agh.to2.hotel.fxml.FxmlContext;
+import pl.edu.agh.to2.hotel.fxml.FxmlContextProvider;
+import pl.edu.agh.to2.hotel.fxml.IFxmlPresenter;
 import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.model.Reservation;
 import pl.edu.agh.to2.hotel.model.Room;
-import pl.edu.agh.to2.hotel.presenter.customer.CustomerInfo;
-import pl.edu.agh.to2.hotel.presenter.reservation.ReservationEditDialog;
-import pl.edu.agh.to2.hotel.presenter.reservation.ReservationInfo;
-import pl.edu.agh.to2.hotel.presenter.room.RoomEditDialog;
-import pl.edu.agh.to2.hotel.presenter.room.RoomInfo;
+import pl.edu.agh.to2.hotel.presenter.customer.CustomerInfoDialog;
+import pl.edu.agh.to2.hotel.presenter.reservation.ReservationActionDialog;
+import pl.edu.agh.to2.hotel.presenter.reservation.ReservationInfoDialog;
+import pl.edu.agh.to2.hotel.presenter.room.RoomActionDialog;
+import pl.edu.agh.to2.hotel.presenter.room.RoomInfoDialog;
 
-import java.io.IOException;
+import static pl.edu.agh.to2.hotel.fxml.FxmlContextType.*;
 
 @Component
-public class MainView {
+public class MainView implements IFxmlPresenter {
     @FXML
     public Tab reservationsTab;
     @FXML
@@ -32,16 +35,17 @@ public class MainView {
     @FXML
     public BorderPane roomsTabPage;
 
-    private final FXMLLoaderProvider fxmlLoaderProvider;
+    private final FxmlContextProvider fxmlContextProvider;
 
     @Setter
     private Stage primaryStage;
 
-    public MainView(FXMLLoaderProvider fxmlLoaderProvider) {
-        this.fxmlLoaderProvider = fxmlLoaderProvider;
+    @Autowired
+    public MainView(FxmlContextProvider fxmlContextProvider) {
+        this.fxmlContextProvider = fxmlContextProvider;
     }
 
-    private Stage createDialog(BorderPane dialog, String title) {
+    private Stage createDialog(Pane dialog, String title) {
         Stage dialogStage = new Stage();
         dialogStage.setTitle(title);
         dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -50,132 +54,75 @@ public class MainView {
         return dialogStage;
     }
 
-    public boolean showEditReservationDialog(Reservation reservation) {
-        try {
-            FXMLLoader loader = fxmlLoaderProvider.load("ReservationEditDialog");
-            BorderPane dialog = loader.load();
-
-            Stage dialogStage = createDialog(dialog, "Edit reservation");
-
-            ReservationEditDialog presenter = loader.getController();
-            presenter.setReservation(reservation);
-            presenter.setDialogStage(dialogStage);
-
-            dialogStage.showAndWait();
-            return presenter.isApproved();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+    public boolean showAddReservationDialog(Reservation reservation) {
+        return showReservationDialog(reservation, "Add reservation");
     }
 
-    public boolean showAddReservationDialog(Reservation reservation) {
-        try {
-            FXMLLoader loader = fxmlLoaderProvider.load("ReservationEditDialog");
-            BorderPane dialog = loader.load();
+    public boolean showEditReservationDialog(Reservation reservation) {
+        return showReservationDialog(reservation,  "Edit reservation");
+    }
 
-            Stage dialogStage = createDialog(dialog, "Add reservation");
+    public boolean showReservationDialog(Reservation reservation, String title) {
+        FxmlContext<ReservationActionDialog> context = fxmlContextProvider.load(RESERVATION_EDIT_DIALOG);
+        Stage dialogStage = createDialog(context.view(), title);
 
-            ReservationEditDialog presenter = loader.getController();
-            presenter.setReservation(reservation);
-            presenter.setDialogStage(dialogStage);
+        ReservationActionDialog presenter = context.controller();
+        presenter.initializeDialog(dialogStage, reservation);
 
-            dialogStage.showAndWait();
-            return presenter.isApproved();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+        dialogStage.showAndWait();
+        return presenter.isApproved();
     }
 
     public void showCustomerInfo(Customer customer) {
-        try {
-            FXMLLoader loader = fxmlLoaderProvider.load("CustomerInfoDialog");
-            BorderPane dialog = loader.load();
+        FxmlContext<CustomerInfoDialog> context = fxmlContextProvider.load(CUSTOMER_INFO_DIALOG);
 
-            Stage dialogStage = createDialog(dialog, "Customer info");
+        Stage dialogStage = createDialog(context.view(), "Customer info");
 
-            CustomerInfo presenter = loader.getController();
-            presenter.setCustomer(customer);
-            presenter.setDialogStage(dialogStage);
+        CustomerInfoDialog presenter = context.controller();
+        presenter.initializeDialog(dialogStage, customer);
 
-            dialogStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        dialogStage.showAndWait();
     }
 
     public void showRoomInfo(Room room) {
-        try {
-            FXMLLoader loader = fxmlLoaderProvider.load("RoomInfoDialog");
-            BorderPane dialog = loader.load();
+        FxmlContext<RoomInfoDialog> view = fxmlContextProvider.load(ROOM_INFO_DIALOG);
 
-            Stage dialogStage = createDialog(dialog, "Room info");
+        Stage dialogStage = createDialog(view.view(), "Room info");
 
-            RoomInfo presenter = loader.getController();
-            presenter.setRoom(room);
-            presenter.setDialogStage(dialogStage);
+        RoomInfoDialog presenter = view.controller();
+        presenter.initializeDialog(dialogStage, room);
 
-            dialogStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        dialogStage.showAndWait();
     }
 
     public boolean showReservationInfo(Reservation reservation) {
-        try {
-            FXMLLoader loader = fxmlLoaderProvider.load("ReservationInfoDialog");
-            BorderPane dialog = loader.load();
+        FxmlContext<ReservationInfoDialog> context = fxmlContextProvider.load(RESERVATION_INFO_DIALOG);
 
-            Stage dialogStage = createDialog(dialog, "Reservation info");
+        ReservationInfoDialog presenter = context.controller();
+        Stage dialogStage = createDialog(context.view(), "Reservation info");
+        presenter.initializeDialog(dialogStage, reservation);
 
-            ReservationInfo presenter = loader.getController();
-            presenter.setReservation(reservation);
-            presenter.setDialogStage(dialogStage);
-
-            dialogStage.showAndWait();
-            return presenter.isApproved();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+        dialogStage.showAndWait();
+        return presenter.isApproved();
     }
 
-    public boolean showAddRoomDialog(Room room) {
-        try {
-            FXMLLoader loader = fxmlLoaderProvider.load("RoomEditDialog");
-            BorderPane dialog = loader.load();
+    public boolean showRoomDialog(Room room, String title) {
+        FxmlContext<RoomActionDialog> context = fxmlContextProvider.load(ROOM_EDIT_DIALOG);
 
-            Stage dialogStage = createDialog(dialog, "Add room");
+        Stage dialogStage = createDialog(context.view(), title);
 
-            RoomEditDialog presenter = loader.getController();
-            presenter.setRoom(room);
-            presenter.setDialogStage(dialogStage);
+        RoomActionDialog presenter = context.controller();
+        presenter.initializeDialog(dialogStage, room);
 
-            dialogStage.showAndWait();
-            return presenter.isApproved();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+        dialogStage.showAndWait();
+        return presenter.isApproved();
     }
 
     public boolean showEditRoomDialog(Room room) {
-        try {
-            FXMLLoader loader = fxmlLoaderProvider.load("RoomEditDialog");
-            BorderPane dialog = loader.load();
+        return showRoomDialog(room, "Edit room");
+    }
 
-            Stage dialogStage = createDialog(dialog, "Edit room");
-
-            RoomEditDialog presenter = loader.getController();
-            presenter.setRoom(room);
-            presenter.setDialogStage(dialogStage);
-
-            dialogStage.showAndWait();
-            return presenter.isApproved();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+    public boolean showAddRoomDialog(Room room) {
+        return showRoomDialog(room, "Add room");
     }
 }

@@ -13,7 +13,7 @@
 
 
 <?import javafx.geometry.Insets?>
-<BorderPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.reservation.ReservationInfo">
+<BorderPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.reservation.ReservationInfoDialog">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>

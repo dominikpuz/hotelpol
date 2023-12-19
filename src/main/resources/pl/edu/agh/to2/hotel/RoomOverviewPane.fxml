@@ -24,12 +24,6 @@
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </HBox.margin>
             </Button>
-            <Button fx:id="showBedsButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Show beds"
-                    onAction="#handleShowBeds">
-                <HBox.margin>
-                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                </HBox.margin>
-            </Button>
         </HBox>
     </top>
     <center>
@@ -39,6 +33,7 @@
                 <TableColumn fx:id="floorColumn" text="Floor"/>
                 <TableColumn fx:id="rentPriceColumn" text="Rent price"/>
                 <TableColumn fx:id="roomStandardColumn" text="Room standard"/>
+                <TableColumn fx:id="bedListColumn" text="List of beds"/>
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
