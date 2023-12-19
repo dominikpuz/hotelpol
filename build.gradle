@@ -23,7 +23,7 @@ java {
 }
 
 javafx {
-    version = '17'
+    version = '21'
     modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media', 'javafx.swing', 'javafx.web']
 }
 
@@ -36,7 +36,6 @@ dependencies {
     // spring boot
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.modelmapper:modelmapper:3.1.1'
 
     // databases
     implementation 'com.microsoft.sqlserver:mssql-jdbc'
