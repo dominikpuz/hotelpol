@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.model.Reservation;
 import pl.edu.agh.to2.hotel.model.Room;
-import pl.edu.agh.to2.hotel.persistance.customer.CustomerFilter;
+import pl.edu.agh.to2.hotel.model.filters.CustomerFilter;
 import pl.edu.agh.to2.hotel.presenter.ActionDialogPresenter;
 import pl.edu.agh.to2.hotel.presenter.customer.CustomerPickerSummary;
 import pl.edu.agh.to2.hotel.presenter.room.RoomPickerSummary;

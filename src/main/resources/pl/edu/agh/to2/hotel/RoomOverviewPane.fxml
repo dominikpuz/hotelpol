@@ -40,4 +40,7 @@
             </columnResizePolicy>
         </TableView>
     </center>
+    <right>
+        <fx:include fx:id="roomFiltering" source="RoomFilteringBox.fxml"/> <!-- The "unresolved reference" can be ignored, because we only need this element's controller -->
+    </right>
 </BorderPane>

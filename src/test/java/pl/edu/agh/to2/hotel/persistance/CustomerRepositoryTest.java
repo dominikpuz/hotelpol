@@ -9,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.DirtiesContext;
 import pl.edu.agh.to2.hotel.TestUtils;
 import pl.edu.agh.to2.hotel.persistance.customer.CustomerEntity;
-import pl.edu.agh.to2.hotel.persistance.customer.CustomerFilter;
+import pl.edu.agh.to2.hotel.model.filters.CustomerFilter;
 import pl.edu.agh.to2.hotel.persistance.customer.CustomerRepository;
 
 import java.util.List;

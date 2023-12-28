@@ -1,9 +1,11 @@
 package pl.edu.agh.to2.hotel.service;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.hotel.mapper.ModelEntityMapper;
 import pl.edu.agh.to2.hotel.model.Reservation;
 import pl.edu.agh.to2.hotel.persistance.reservation.ReservationEntity;
+import pl.edu.agh.to2.hotel.model.filters.ReservationFilter;
 import pl.edu.agh.to2.hotel.persistance.reservation.ReservationRepository;
 import pl.edu.agh.to2.hotel.persistance.reservation.ReservationState;
 
@@ -40,6 +42,11 @@ public class ReservationService {
     public List<Reservation> findReservationsByStartDate(LocalDate date) {
         return reservationRepository.findReservationsByStartDateEquals(date)
                 .stream().map(modelEntityMapper::mapReservationFromEntity).toList();
+    }
+
+    public List<Reservation> searchReservations(ReservationFilter filter) {
+        List<ReservationEntity> reservationEntities = reservationRepository.searchReservations(filter, PageRequest.of(0, 10));
+        return reservationEntities.stream().map(modelEntityMapper::mapReservationFromEntity).toList();
     }
 
     public Reservation updateReservationState(Reservation reservation, ReservationState updatedState) {

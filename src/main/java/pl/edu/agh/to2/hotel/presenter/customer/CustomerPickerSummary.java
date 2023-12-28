@@ -12,12 +12,14 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.presenter.MainView;
 import pl.edu.agh.to2.hotel.service.CustomerService;
 
 @Component
+@Scope("prototype")
 public class CustomerPickerSummary {
     @FXML
     private Text customerSummary;

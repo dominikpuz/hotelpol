@@ -9,12 +9,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.fxml.IFxmlPresenter;
 import pl.edu.agh.to2.hotel.model.Room;
 import pl.edu.agh.to2.hotel.persistance.StringBedTypeListConverter;
-import pl.edu.agh.to2.hotel.persistance.room.RoomFilter;
 import pl.edu.agh.to2.hotel.presenter.MainView;
 import pl.edu.agh.to2.hotel.service.RoomService;
 
@@ -37,6 +37,8 @@ public class RoomOverview implements IFxmlPresenter {
     public TableColumn<Room, String> roomStandardColumn;
     @FXML
     public TableColumn<Room, String> bedListColumn;
+    @FXML
+    public RoomFilteringPresenter roomFilteringController;  // the field name has to end with "Controller" so the JavaFX parses it correctly
 
     private final MainView mainController;
     private final RoomService roomService;
@@ -61,12 +63,14 @@ public class RoomOverview implements IFxmlPresenter {
                 bedTypeListConverter.convertToDatabaseColumn(param.getValue().getBeds())));
 
         editRoomButton.disableProperty().bind(Bindings.isEmpty(roomTable.getSelectionModel().getSelectedItems()));
+
+        roomFilteringController.modelFilter.addListener(observable -> loadData());
         loadData();
     }
 
     private void loadData() {
         ObservableList<Room> rooms = FXCollections.observableArrayList(
-                roomService.searchRooms(RoomFilter.builder().build()));
+                roomService.searchRooms(roomFilteringController.modelFilter.get()));
         roomTable.setItems(rooms);
     }
 

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.hotel.mapper.ModelEntityMapper;
 import pl.edu.agh.to2.hotel.model.Room;
 import pl.edu.agh.to2.hotel.persistance.room.RoomEntity;
-import pl.edu.agh.to2.hotel.persistance.room.RoomFilter;
+import pl.edu.agh.to2.hotel.model.filters.RoomFilter;
 import pl.edu.agh.to2.hotel.persistance.room.RoomRepository;
 
 import java.time.LocalDate;
