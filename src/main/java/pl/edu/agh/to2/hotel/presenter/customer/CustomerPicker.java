@@ -4,6 +4,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.springframework.stereotype.Component;
@@ -45,7 +46,9 @@ public class CustomerPicker extends PickerDialogPresenter<Customer> {
         searchField.textProperty().addListener((observable, oldValue, newValue) ->
                 filteredData.setPredicate(createPredicate(newValue))
         );
-        customerTable.setItems(filteredData);
+        SortedList<Customer> sortableData = new SortedList<>(filteredData);
+        customerTable.setItems(sortableData);
+        sortableData.comparatorProperty().bind(customerTable.comparatorProperty());
     }
 
     @Override

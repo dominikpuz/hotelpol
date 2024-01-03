@@ -4,6 +4,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.springframework.stereotype.Component;
@@ -56,7 +57,9 @@ public class RoomPicker extends PickerDialogPresenter<Room> {
         searchField.textProperty().addListener((observable, oldValue, newValue) ->
                 filteredData.setPredicate(createPredicate(newValue))
         );
-        roomTable.setItems(filteredData);
+        SortedList<Room> sortableData = new SortedList<>(filteredData);
+        roomTable.setItems(sortableData);
+        sortableData.comparatorProperty().bind(roomTable.comparatorProperty());
 
     }
 
