@@ -80,7 +80,7 @@ public class ReservationOverview {
         reservationTable.setItems(reservations);
     }
     @FXML
-    public void handleAddReservation(ActionEvent actionEvent) {
+    public void handleAddReservation(ActionEvent ignoreEvent) {
         Reservation reservation = new Reservation();
         reservation.setState(ReservationState.CREATED);
         if(mainController.showAddReservationDialog(reservation)) {
@@ -90,7 +90,7 @@ public class ReservationOverview {
     }
 
     @FXML
-    public void handleEditReservation(ActionEvent actionEvent) {
+    public void handleEditReservation(ActionEvent ignoreEvent) {
         Reservation reservation = reservationTable.getSelectionModel().getSelectedItem();
         if (reservation != null) {
             if(mainController.showEditReservationDialog(reservation)) {
@@ -99,7 +99,7 @@ public class ReservationOverview {
         }
     }
     @FXML
-    public void handleShowReservation(ActionEvent actionEvent) {
+    public void handleShowReservation(ActionEvent ignoreEvent) {
         Reservation reservation = reservationTable.getSelectionModel().getSelectedItem();
         if (reservation != null) {
             if(mainController.showReservationInfo(reservation)) {
@@ -109,7 +109,7 @@ public class ReservationOverview {
     }
 
     @FXML
-    public void handleShowCustomer(ActionEvent actionEvent) {
+    public void handleShowCustomer(ActionEvent ignoreEvent) {
         Customer customer = reservationTable.getSelectionModel().getSelectedItem().getCustomer();
         if (customer != null) {
             mainController.showCustomerInfo(customer);
@@ -117,7 +117,7 @@ public class ReservationOverview {
     }
 
     @FXML
-    public void handleShowRoom(ActionEvent actionEvent) {
+    public void handleShowRoom(ActionEvent ignoreEvent) {
         Room room = reservationTable.getSelectionModel().getSelectedItem().getRoom();
         if (room != null) {
             mainController.showRoomInfo(room);
