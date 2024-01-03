@@ -5,6 +5,8 @@ public enum FxmlContextType {
     CUSTOMER_INFO_DIALOG("CustomerInfoDialog"),
     ROOM_INFO_DIALOG("RoomInfoDialog"),
     ROOM_EDIT_DIALOG("RoomEditDialog"),
+    CUSTOMER_PICKER("CustomerPicker"),
+    ROOM_PICKER("RoomPicker"),
     RESERVATION_INFO_DIALOG("ReservationInfoDialog"),
     RESERVATION_EDIT_DIALOG("ReservationEditDialog");
 
