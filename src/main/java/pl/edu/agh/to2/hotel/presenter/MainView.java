@@ -16,6 +16,7 @@ import pl.edu.agh.to2.hotel.fxml.IFxmlPresenter;
 import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.model.Reservation;
 import pl.edu.agh.to2.hotel.model.Room;
+import pl.edu.agh.to2.hotel.presenter.customer.CustomerActionDialog;
 import pl.edu.agh.to2.hotel.presenter.customer.CustomerInfoDialog;
 import pl.edu.agh.to2.hotel.presenter.customer.CustomerPicker;
 import pl.edu.agh.to2.hotel.presenter.reservation.ReservationActionDialog;
@@ -103,6 +104,39 @@ public class MainView implements IFxmlPresenter {
 
         ReservationActionDialog presenter = context.controller();
         presenter.initializeDialog(dialogStage, reservation);
+
+        dialogStage.showAndWait();
+        return presenter.isApproved();
+    }
+
+    public boolean showAddCustomerDialog(Customer customer) {
+        return showCustomerDialog(customer,  "Add customer");
+    }
+    public boolean showAddCustomerDialog(Customer customer, Stage owner) {
+        return showCustomerDialog(customer,  "Add customer", owner);
+    }
+
+    public boolean showEditCustomerDialog(Customer customer) {
+        return showCustomerDialog(customer,  "Edit customer");
+    }
+
+    public boolean showCustomerDialog(Customer customer, String title) {
+        FxmlContext<CustomerActionDialog> context = fxmlContextProvider.load(CUSTOMER_EDIT_DIALOG);
+        Stage dialogStage = createDialog(context.view(), title);
+
+        CustomerActionDialog presenter = context.controller();
+        presenter.initializeDialog(dialogStage, customer);
+
+        dialogStage.showAndWait();
+        return presenter.isApproved();
+    }
+
+    public boolean showCustomerDialog(Customer customer, String title, Stage owner) {
+        FxmlContext<CustomerActionDialog> context = fxmlContextProvider.load(CUSTOMER_EDIT_DIALOG);
+        Stage dialogStage = createDialog(context.view(), title, owner);
+
+        CustomerActionDialog presenter = context.controller();
+        presenter.initializeDialog(dialogStage, customer);
 
         dialogStage.showAndWait();
         return presenter.isApproved();

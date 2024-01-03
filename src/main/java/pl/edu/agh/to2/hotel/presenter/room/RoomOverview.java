@@ -71,7 +71,7 @@ public class RoomOverview implements IFxmlPresenter {
     }
 
     @FXML
-    public void handleAddRoom(ActionEvent actionEvent) {
+    public void handleAddRoom(ActionEvent ignoreEvent) {
         Room room = new Room();
         if (mainController.showAddRoomDialog(room)) {
             roomService.createNewRoom(room);
@@ -80,7 +80,7 @@ public class RoomOverview implements IFxmlPresenter {
     }
 
     @FXML
-    public void handleEditRoom(ActionEvent actionEvent) {
+    public void handleEditRoom(ActionEvent ignoreEvent) {
         Room room = roomTable.getSelectionModel().getSelectedItem();
         if (room != null) {
             if (mainController.showEditRoomDialog(room)) {
@@ -88,9 +88,5 @@ public class RoomOverview implements IFxmlPresenter {
                 loadData();
             }
         }
-    }
-
-    @FXML
-    public void handleShowBeds(ActionEvent actionEvent) {
     }
 }

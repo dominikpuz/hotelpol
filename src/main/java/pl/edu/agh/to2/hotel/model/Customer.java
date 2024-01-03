@@ -13,6 +13,10 @@ public class Customer implements IPresentableModel {
     private String phoneNumber;
     private String email;
 
+    public Customer() {
+        this.id = -1;
+    }
+
     public Customer(String firstName, String lastName, String phoneNumber, String email) {
         this(-1, firstName, lastName, phoneNumber, email);
     }
