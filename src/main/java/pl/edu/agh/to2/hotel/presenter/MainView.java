@@ -55,12 +55,7 @@ public class MainView implements IFxmlPresenter {
     }
 
     private Stage createDialog(Pane dialog, String title) {
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle(title);
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(primaryStage);
-        dialogStage.setScene(new Scene(dialog));
-        return dialogStage;
+        return createDialog(dialog, title, primaryStage);
     }
 
     private Stage createDialog(Pane dialog, String title, Stage owner) {
@@ -125,14 +120,7 @@ public class MainView implements IFxmlPresenter {
     }
 
     public boolean showCustomerDialog(Customer customer, String title) {
-        FxmlContext<CustomerActionDialog> context = fxmlContextProvider.load(CUSTOMER_EDIT_DIALOG);
-        Stage dialogStage = createDialog(context.view(), title);
-
-        CustomerActionDialog presenter = context.controller();
-        presenter.initializeDialog(dialogStage, customer);
-
-        dialogStage.showAndWait();
-        return presenter.isApproved();
+        return showCustomerDialog(customer, title, primaryStage);
     }
 
     public boolean showCustomerDialog(Customer customer, String title, Stage owner) {
