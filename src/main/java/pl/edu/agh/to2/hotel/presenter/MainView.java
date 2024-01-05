@@ -16,6 +16,7 @@ import pl.edu.agh.to2.hotel.fxml.IFxmlPresenter;
 import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.model.Reservation;
 import pl.edu.agh.to2.hotel.model.Room;
+import pl.edu.agh.to2.hotel.persistance.reservation.ReservationState;
 import pl.edu.agh.to2.hotel.presenter.customer.CustomerActionDialog;
 import pl.edu.agh.to2.hotel.presenter.customer.CustomerInfoDialog;
 import pl.edu.agh.to2.hotel.presenter.customer.CustomerPicker;
@@ -26,6 +27,7 @@ import pl.edu.agh.to2.hotel.presenter.room.RoomInfoDialog;
 import pl.edu.agh.to2.hotel.presenter.room.RoomPicker;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import static pl.edu.agh.to2.hotel.fxml.FxmlContextType.*;
 
@@ -89,49 +91,47 @@ public class MainView implements IFxmlPresenter {
         return presenter.getModel();
     }
 
-    public boolean showAddReservationDialog(Reservation reservation) {
-        return showReservationDialog(reservation, "Add reservation");
+    public void showAddReservationDialog(Reservation reservation, Consumer<Reservation> onSave) {
+        showReservationDialog(reservation, "Add reservation", onSave);
     }
 
-    public boolean showEditReservationDialog(Reservation reservation) {
-        return showReservationDialog(reservation,  "Edit reservation");
+    public void showEditReservationDialog(Reservation reservation, Consumer<Reservation> onSave) {
+        showReservationDialog(reservation, "Edit reservation", onSave);
     }
 
-    public boolean showReservationDialog(Reservation reservation, String title) {
+    public void showReservationDialog(Reservation reservation, String title, Consumer<Reservation> onSave) {
         FxmlContext<ReservationActionDialog> context = fxmlContextProvider.load(RESERVATION_EDIT_DIALOG);
         Stage dialogStage = createDialog(context.view(), title);
 
         ReservationActionDialog presenter = context.controller();
-        presenter.initializeDialog(dialogStage, reservation);
+        presenter.initializeDialog(dialogStage, reservation, onSave);
 
         dialogStage.showAndWait();
-        return presenter.isApproved();
     }
 
-    public boolean showAddCustomerDialog(Customer customer) {
-        return showCustomerDialog(customer,  "Add customer");
+    public void showAddCustomerDialog(Customer customer, Consumer<Customer> onSave) {
+        showCustomerDialog(customer, "Add customer", onSave);
     }
-    public boolean showAddCustomerDialog(Customer customer, Stage owner) {
-        return showCustomerDialog(customer,  "Add customer", owner);
-    }
-
-    public boolean showEditCustomerDialog(Customer customer) {
-        return showCustomerDialog(customer,  "Edit customer");
+    public void showAddCustomerDialog(Customer customer, Stage owner, Consumer<Customer> onSave) {
+        showCustomerDialog(customer, "Add customer", owner, onSave);
     }
 
-    public boolean showCustomerDialog(Customer customer, String title) {
-        return showCustomerDialog(customer, title, primaryStage);
+    public void showEditCustomerDialog(Customer customer, Consumer<Customer> onSave) {
+        showCustomerDialog(customer, "Edit customer", onSave);
     }
 
-    public boolean showCustomerDialog(Customer customer, String title, Stage owner) {
+    public void showCustomerDialog(Customer customer, String title, Consumer<Customer> onSave) {
+        showCustomerDialog(customer, title, primaryStage, onSave);
+    }
+
+    public void showCustomerDialog(Customer customer, String title, Stage owner, Consumer<Customer> onSave) {
         FxmlContext<CustomerActionDialog> context = fxmlContextProvider.load(CUSTOMER_EDIT_DIALOG);
         Stage dialogStage = createDialog(context.view(), title, owner);
 
         CustomerActionDialog presenter = context.controller();
-        presenter.initializeDialog(dialogStage, customer);
+        presenter.initializeDialog(dialogStage, customer, onSave);
 
         dialogStage.showAndWait();
-        return presenter.isApproved();
     }
 
     public void showCustomerInfo(Customer customer) {
@@ -156,34 +156,32 @@ public class MainView implements IFxmlPresenter {
         dialogStage.showAndWait();
     }
 
-    public boolean showReservationInfo(Reservation reservation) {
+    public void showReservationInfo(Reservation reservation, Consumer<ReservationState> onStateUpdate) {
         FxmlContext<ReservationInfoDialog> context = fxmlContextProvider.load(RESERVATION_INFO_DIALOG);
 
         ReservationInfoDialog presenter = context.controller();
         Stage dialogStage = createDialog(context.view(), "Reservation info");
-        presenter.initializeDialog(dialogStage, reservation);
+        presenter.initializeDialog(dialogStage, reservation, onStateUpdate);
 
         dialogStage.showAndWait();
-        return presenter.isApproved();
     }
 
-    public boolean showRoomDialog(Room room, String title) {
+    public void showRoomDialog(Room room, String title, Consumer<Room> onSave) {
         FxmlContext<RoomActionDialog> context = fxmlContextProvider.load(ROOM_EDIT_DIALOG);
 
         Stage dialogStage = createDialog(context.view(), title);
 
         RoomActionDialog presenter = context.controller();
-        presenter.initializeDialog(dialogStage, room);
+        presenter.initializeDialog(dialogStage, room, onSave);
 
         dialogStage.showAndWait();
-        return presenter.isApproved();
     }
 
-    public boolean showEditRoomDialog(Room room) {
-        return showRoomDialog(room, "Edit room");
+    public void showEditRoomDialog(Room room, Consumer<Room> onSave) {
+        showRoomDialog(room, "Edit room", onSave);
     }
 
-    public boolean showAddRoomDialog(Room room) {
-        return showRoomDialog(room, "Add room");
+    public void showAddRoomDialog(Room room, Consumer<Room> onSave) {
+        showRoomDialog(room, "Add room", onSave);
     }
 }

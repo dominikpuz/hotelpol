@@ -64,20 +64,19 @@ public class CustomerOverview {
 
     @FXML
     public void handleAddCustomer(ActionEvent ignoreEvent) {
-        Customer customer = new Customer();
-        if (mainController.showAddCustomerDialog(customer)) {
-            customerService.addNewCustomer(customer);
+        mainController.showAddCustomerDialog(new Customer(), toSave -> {
+            customerService.addNewCustomer(toSave);
             loadData();
-        }
+        });
     }
 
     @FXML
     public void handleEditCustomer(ActionEvent ignoreEvent) {
         Customer customer = customerTable.getSelectionModel().getSelectedItem();
-        if (customer != null) {
-            if (mainController.showEditCustomerDialog(customer)) {
-                // TODO: update customer
-            }
-        }
+        if(customer == null) return;
+        mainController.showEditCustomerDialog(customer, toUpdate -> {
+            customerService.updateCustomer(toUpdate);
+            loadData();
+        });
     }
 }

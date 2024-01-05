@@ -7,7 +7,7 @@ import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.presenter.ActionDialogPresenter;
 
 @Component
-public class CustomerActionDialog extends ActionDialogPresenter<Customer> {
+public class CustomerActionDialog extends ActionDialogPresenter<Customer, Customer> {
     @FXML
     public TextField firstName;
     @FXML
@@ -36,6 +36,6 @@ public class CustomerActionDialog extends ActionDialogPresenter<Customer> {
         model.setLastName(lastName.getText());
         model.setPhoneNumber(phoneNumber.getText());
         model.setEmail(email.getText());
-        return true;
+        return tryDoDefaultAction(model);
     }
 }

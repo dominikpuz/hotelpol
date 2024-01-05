@@ -64,11 +64,9 @@ public class CustomerPickerSummary {
 
     @FXML
     public void handleNewCustomer(ActionEvent ignoredEvent) {
-        Customer newCustomer = new Customer();
-        if (!mainController.showAddCustomerDialog(newCustomer, dialogStage)) {
-            return;
-        }
-        var addedCustomer = customerService.addNewCustomer(newCustomer);
-        this.selectedCustomer.set(addedCustomer);
+        mainController.showAddCustomerDialog(new Customer(), toSave -> {
+            var addedCustomer = customerService.addNewCustomer(toSave);
+            selectedCustomer.set(addedCustomer);
+        });
     }
 }

@@ -60,7 +60,6 @@ public class RoomPicker extends PickerDialogPresenter<Room> {
         SortedList<Room> sortableData = new SortedList<>(filteredData);
         roomTable.setItems(sortableData);
         sortableData.comparatorProperty().bind(roomTable.comparatorProperty());
-
     }
 
     @Override

@@ -42,12 +42,44 @@ public class RoomService {
                 .stream().map(modelEntityMapper::mapRoomFromEntity).toList();
     }
 
+    public boolean isRoomAvailableBetweenDates(Room room, LocalDate startDate, LocalDate endDate) {
+        return roomRepository.isRoomAvailableBetweenDates(room.getId(), startDate, endDate);
+    }
+
     public List<Room> searchRooms(RoomFilter filter) {
         return roomRepository.searchRooms(filter, PageRequest.of(0, 10)).stream().map(modelEntityMapper::mapRoomFromEntity).toList();
     }
 
     public Room createNewRoom(Room room) {
+        throwIfThereAreUnfulfilledFields(room);
+        throwExceptionIfRoomNumberIsDoubled(room);
         return saveRoom(room);
+    }
+
+    public Room updateRoom(Room room) {
+        throwIfThereAreUnfulfilledFields(room);
+        throwExceptionIfRoomNumberIsDoubled(room);
+        return saveRoom(room);
+    }
+
+    private void throwExceptionIfRoomNumberIsDoubled(Room room) {
+        // there should not be any two rooms with the same number and floor
+        Optional<Room> found = getRoomByRoomNumberAndFloor(room.getRoomNumber(), room.getFloor());
+        if (found.isPresent() && found.get().getId() != room.getId()) {
+            throw new IllegalOperationException("The room with number %s on floor %d already exists!".formatted(room.getRoomNumber(), room.getFloor()));
+        }
+    }
+
+    private void throwIfThereAreUnfulfilledFields(Room room) {
+        if(room.getRoomNumber() == null || room.getRoomNumber().isBlank()) {
+            throw new IllegalOperationException("The room number cannot be empty!");
+        }
+        if(room.getRoomStandard() == null) {
+            throw new IllegalOperationException("The room standard cannot be empty!");
+        }
+        if(room.getBeds() == null || room.getBeds().isEmpty()) {
+            throw new IllegalOperationException("The room beds specification have to contain at least one bed!");
+        }
     }
 
     private Room saveRoom(Room room) {

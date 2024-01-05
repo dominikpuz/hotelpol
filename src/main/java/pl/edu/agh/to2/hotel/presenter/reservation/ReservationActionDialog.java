@@ -16,7 +16,7 @@ import pl.edu.agh.to2.hotel.service.CustomerService;
 import pl.edu.agh.to2.hotel.service.RoomService;
 
 @Component
-public class ReservationActionDialog extends ActionDialogPresenter<Reservation> {
+public class ReservationActionDialog extends ActionDialogPresenter<Reservation, Reservation> {
     @FXML
     private DatePicker startDateField;
     @FXML
@@ -75,7 +75,7 @@ public class ReservationActionDialog extends ActionDialogPresenter<Reservation> 
         model.setCustomer(customer);
         model.setRoom(room);
 
-        return true;
+        return tryDoDefaultAction(model);
     }
 
     private void updateSelectableRooms() {

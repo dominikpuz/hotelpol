@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.model.Reservation;
 import pl.edu.agh.to2.hotel.model.Room;
-import pl.edu.agh.to2.hotel.persistance.reservation.ReservationState;
 import pl.edu.agh.to2.hotel.presenter.MainView;
 import pl.edu.agh.to2.hotel.service.ReservationService;
 
@@ -81,31 +80,29 @@ public class ReservationOverview {
     }
     @FXML
     public void handleAddReservation(ActionEvent ignoreEvent) {
-        Reservation reservation = new Reservation();
-        reservation.setState(ReservationState.CREATED);
-        if(mainController.showAddReservationDialog(reservation)) {
-            reservationService.addNewReservation(reservation);
+        mainController.showAddReservationDialog(new Reservation(), toSave -> {
+            reservationService.addNewReservation(toSave);
             loadData();
-        }
+        });
     }
 
     @FXML
     public void handleEditReservation(ActionEvent ignoreEvent) {
         Reservation reservation = reservationTable.getSelectionModel().getSelectedItem();
-        if (reservation != null) {
-            if(mainController.showEditReservationDialog(reservation)) {
-                // TODO: update reservation
-            }
-        }
+        if(reservation == null) return;
+        mainController.showEditReservationDialog(reservation, toUpdate -> {
+           reservationService.updateReservation(toUpdate);
+           loadData();
+        });
     }
     @FXML
     public void handleShowReservation(ActionEvent ignoreEvent) {
         Reservation reservation = reservationTable.getSelectionModel().getSelectedItem();
-        if (reservation != null) {
-            if(mainController.showReservationInfo(reservation)) {
-                loadData();
-            }
-        }
+        if(reservation == null) return;
+        mainController.showReservationInfo(reservation, updatedState -> {
+            reservationService.updateReservationState(reservation, updatedState);
+            loadData();
+        });
     }
 
     @FXML
