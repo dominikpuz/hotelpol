@@ -16,11 +16,16 @@ import pl.edu.agh.to2.hotel.fxml.IFxmlPresenter;
 import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.model.Reservation;
 import pl.edu.agh.to2.hotel.model.Room;
+import pl.edu.agh.to2.hotel.presenter.customer.CustomerActionDialog;
 import pl.edu.agh.to2.hotel.presenter.customer.CustomerInfoDialog;
+import pl.edu.agh.to2.hotel.presenter.customer.CustomerPicker;
 import pl.edu.agh.to2.hotel.presenter.reservation.ReservationActionDialog;
 import pl.edu.agh.to2.hotel.presenter.reservation.ReservationInfoDialog;
 import pl.edu.agh.to2.hotel.presenter.room.RoomActionDialog;
 import pl.edu.agh.to2.hotel.presenter.room.RoomInfoDialog;
+import pl.edu.agh.to2.hotel.presenter.room.RoomPicker;
+
+import java.util.List;
 
 import static pl.edu.agh.to2.hotel.fxml.FxmlContextType.*;
 
@@ -46,12 +51,38 @@ public class MainView implements IFxmlPresenter {
     }
 
     private Stage createDialog(Pane dialog, String title) {
+        return createDialog(dialog, title, primaryStage);
+    }
+
+    private Stage createDialog(Pane dialog, String title, Stage owner) {
         Stage dialogStage = new Stage();
         dialogStage.setTitle(title);
         dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(primaryStage);
+        dialogStage.initOwner(owner);
         dialogStage.setScene(new Scene(dialog));
         return dialogStage;
+    }
+
+    public Customer showCustomerPicker(Stage owner, List<Customer> customers) {
+        FxmlContext<CustomerPicker> context = fxmlContextProvider.load(CUSTOMER_PICKER);
+        Stage dialogStage = createDialog(context.view(), "Select customer", owner);
+
+        CustomerPicker presenter = context.controller();
+        presenter.initializeDialog(dialogStage, customers);
+
+        dialogStage.showAndWait();
+        return presenter.getModel();
+    }
+
+    public Room showRoomPicker(Stage owner, List<Room> rooms) {
+        FxmlContext<RoomPicker> context = fxmlContextProvider.load(ROOM_PICKER);
+        Stage dialogStage = createDialog(context.view(), "Select room", owner);
+
+        RoomPicker presenter = context.controller();
+        presenter.initializeDialog(dialogStage, rooms);
+
+        dialogStage.showAndWait();
+        return presenter.getModel();
     }
 
     public boolean showAddReservationDialog(Reservation reservation) {
@@ -68,6 +99,32 @@ public class MainView implements IFxmlPresenter {
 
         ReservationActionDialog presenter = context.controller();
         presenter.initializeDialog(dialogStage, reservation);
+
+        dialogStage.showAndWait();
+        return presenter.isApproved();
+    }
+
+    public boolean showAddCustomerDialog(Customer customer) {
+        return showCustomerDialog(customer,  "Add customer");
+    }
+    public boolean showAddCustomerDialog(Customer customer, Stage owner) {
+        return showCustomerDialog(customer,  "Add customer", owner);
+    }
+
+    public boolean showEditCustomerDialog(Customer customer) {
+        return showCustomerDialog(customer,  "Edit customer");
+    }
+
+    public boolean showCustomerDialog(Customer customer, String title) {
+        return showCustomerDialog(customer, title, primaryStage);
+    }
+
+    public boolean showCustomerDialog(Customer customer, String title, Stage owner) {
+        FxmlContext<CustomerActionDialog> context = fxmlContextProvider.load(CUSTOMER_EDIT_DIALOG);
+        Stage dialogStage = createDialog(context.view(), title, owner);
+
+        CustomerActionDialog presenter = context.controller();
+        presenter.initializeDialog(dialogStage, customer);
 
         dialogStage.showAndWait();
         return presenter.isApproved();

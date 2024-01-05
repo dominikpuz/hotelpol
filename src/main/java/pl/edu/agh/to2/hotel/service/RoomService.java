@@ -8,6 +8,7 @@ import pl.edu.agh.to2.hotel.persistance.room.RoomEntity;
 import pl.edu.agh.to2.hotel.persistance.room.RoomFilter;
 import pl.edu.agh.to2.hotel.persistance.room.RoomRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,11 @@ public class RoomService {
 
     public List<Room> findRoomsWithRentPriceInRange(double min, double max) {
         return roomRepository.findRoomEntitiesByRentPriceBetween(min, max)
+                .stream().map(modelEntityMapper::mapRoomFromEntity).toList();
+    }
+
+    public List<Room> findAvailableRoomsBetweenDates(LocalDate startDate, LocalDate endDate) {
+        return roomRepository.findAvailableRoomsBetweenDates(startDate, endDate)
                 .stream().map(modelEntityMapper::mapRoomFromEntity).toList();
     }
 

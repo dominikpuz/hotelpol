@@ -18,7 +18,7 @@ import pl.edu.agh.to2.hotel.model.IPresentableModel;
 public abstract class ActionDialogPresenter<Model extends IPresentableModel> implements IFxmlPresenter {
 
     protected Model model;
-    private Stage dialogStage;
+    protected Stage dialogStage;
 
     @Getter
     protected boolean approved;
