@@ -39,6 +39,10 @@ public class MainView implements IFxmlPresenter {
     public Tab roomsTab;
     @FXML
     public BorderPane roomsTabPage;
+    @FXML
+    public Tab customersTab;
+    @FXML
+    public BorderPane customersTabPage;
 
     private final FxmlContextProvider fxmlContextProvider;
 

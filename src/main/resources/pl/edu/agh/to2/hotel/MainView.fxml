@@ -14,5 +14,8 @@
         <Tab fx:id="roomsTab" text="Rooms">
             <fx:include fx:id="roomsTabPage" source="RoomOverviewPane.fxml"/>
         </Tab>
+        <Tab fx:id="customersTab" text="Customers">
+            <fx:include fx:id="customersTabPage" source="CustomerOverviewPane.fxml"/>
+        </Tab>
     </TabPane>
 </AnchorPane>
