@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.hotel.mapper.ModelEntityMapper;
 import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.persistance.customer.CustomerEntity;
-import pl.edu.agh.to2.hotel.persistance.customer.CustomerFilter;
+import pl.edu.agh.to2.hotel.model.filters.CustomerFilter;
 import pl.edu.agh.to2.hotel.persistance.customer.CustomerRepository;
 import pl.edu.agh.to2.hotel.util.EmailValidator;
 import pl.edu.agh.to2.hotel.util.PhoneNumberValidator;

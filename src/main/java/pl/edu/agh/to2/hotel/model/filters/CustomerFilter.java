@@ -1,4 +1,4 @@
-package pl.edu.agh.to2.hotel.persistance.customer;
+package pl.edu.agh.to2.hotel.model.filters;
 
 import lombok.Builder;
 
@@ -8,4 +8,4 @@ public record CustomerFilter(
         String lastName,
         String phone,
         String email
-) {}
+) implements IModelFilter {}

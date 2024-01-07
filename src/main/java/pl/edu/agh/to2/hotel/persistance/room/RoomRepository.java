@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import pl.edu.agh.to2.hotel.model.filters.RoomFilter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,10 +27,10 @@ public interface RoomRepository extends JpaRepository<RoomEntity, Long> {
 
     //TODO implement filtering rooms by comparing beds setup
     @Query("SELECT r FROM RoomEntity r WHERE " +
-            "(:#{#filter.roomNumber()} IS NULL OR r.roomNumber = :#{#filter.roomNumber()}) " +
+            "(:#{#filter.roomNumber()} IS NULL OR r.roomNumber ILIKE %:#{#filter.roomNumber()}%) " +
             "AND (:#{#filter.floor()} IS NULL OR r.floor = :#{#filter.floor()}) " +
            // "AND (:#{#filter.beds()} IS NULL OR :#{#filter.beds()} IN r.beds) " +
-            "AND (:#{#filter.standard()} IS NULL OR r.roomStandard = :#{#filter.standard()}) " +
+            "AND (:#{#filter.standard() == null ? null : 1} IS NULL OR r.roomStandard = :#{#filter.standard()}) " + // I REALLY don't understand why simple ":#{#filter.standard()}" doesn't work and I need to do... this... but I've lost enough time debugging it
             "AND (:#{#filter.minRentPrice()} IS NULL OR r.rentPrice >= :#{#filter.minRentPrice()}) " +
             "AND (:#{#filter.maxRentPrice()} IS NULL OR r.rentPrice <= :#{#filter.maxRentPrice()})")
     List<RoomEntity> searchRooms(@Param("filter") RoomFilter filter, Pageable pageable);

@@ -47,6 +47,9 @@ public class ReservationOverview {
     public Button showReservationButton;
     @FXML
     private TableView<Reservation> reservationTable;
+    @FXML
+    public ReservationFilteringPresenter reservationFilteringController;  // the field name has to end with "Controller" so the JavaFX parses it correctly
+
     private final MainView mainController;
     private final ReservationService reservationService;
 
@@ -61,7 +64,7 @@ public class ReservationOverview {
         roomNumberColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getRoom().getRoomNumber()));
         customerColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getCustomer().getFirstName() + " " + param.getValue().getCustomer().getLastName()));
         startDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getStartDate()));
-        endDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getStartDate()));
+        endDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getEndDate()));
         reservationStateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getState().toString()));
         rentPriceColumn.setCellValueFactory(param -> new SimpleDoubleProperty(param.getValue().getRoom().getRentPrice()));
 
@@ -70,12 +73,14 @@ public class ReservationOverview {
         showReservationButton.disableProperty().bind(Bindings.isEmpty(reservationTable.getSelectionModel().getSelectedItems()));
         editReservationButton.disableProperty().bind(Bindings.isEmpty(reservationTable.getSelectionModel().getSelectedItems()));
 
+        reservationFilteringController.modelFilter.addListener(observable -> loadData());
+
         loadData();
     }
 
     public void loadData() {
         ObservableList<Reservation> reservations = FXCollections.observableArrayList(
-                reservationService.findReservationsByStartDate(LocalDate.now()));
+                reservationService.searchReservations(reservationFilteringController.modelFilter.get()));
         reservationTable.setItems(reservations);
     }
     @FXML

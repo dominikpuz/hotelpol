@@ -12,7 +12,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.model.Customer;
-import pl.edu.agh.to2.hotel.persistance.customer.CustomerFilter;
 import pl.edu.agh.to2.hotel.presenter.MainView;
 import pl.edu.agh.to2.hotel.service.CustomerService;
 
@@ -32,6 +31,8 @@ public class CustomerOverview {
     public Button editCustomerButton;
     @FXML
     public Button addCustomerButton;
+    @FXML
+    public CustomerFilteringPresenter customerFilteringController;  // the field name has to end with "Controller" so the JavaFX parses it correctly
 
     private final MainView mainController;
     private final CustomerService customerService;
@@ -52,12 +53,14 @@ public class CustomerOverview {
 
         editCustomerButton.disableProperty().bind(Bindings.isEmpty(customerTable.getSelectionModel().getSelectedItems()));
 
+        customerFilteringController.modelFilter.addListener(observable -> loadData());
+
         loadData();
     }
 
     private void loadData() {
         ObservableList<Customer> customers = FXCollections.observableArrayList(
-          customerService.searchCustomers(CustomerFilter.builder().build())
+          customerService.searchCustomers(customerFilteringController.modelFilter.get())
         );
         customerTable.setItems(customers);
     }
