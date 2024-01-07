@@ -72,21 +72,20 @@ public class RoomOverview implements IFxmlPresenter {
 
     @FXML
     public void handleAddRoom(ActionEvent ignoreEvent) {
-        Room room = new Room();
-        if (mainController.showAddRoomDialog(room)) {
-            roomService.createNewRoom(room);
+        mainController.showAddRoomDialog(new Room(), toSave -> {
+            roomService.createNewRoom(toSave);
             loadData();
-        }
+        });
     }
 
     @FXML
     public void handleEditRoom(ActionEvent ignoreEvent) {
         Room room = roomTable.getSelectionModel().getSelectedItem();
-        if (room != null) {
-            if (mainController.showEditRoomDialog(room)) {
-                // TODO: edit room
-                loadData();
-            }
-        }
+        if(room == null) return;
+
+        mainController.showEditRoomDialog(room, toUpdate -> {
+            roomService.updateRoom(toUpdate);
+            loadData();
+        });
     }
 }

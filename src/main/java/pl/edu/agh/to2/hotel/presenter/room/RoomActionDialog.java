@@ -12,7 +12,7 @@ import pl.edu.agh.to2.hotel.persistance.room.RoomStandard;
 import pl.edu.agh.to2.hotel.presenter.ActionDialogPresenter;
 
 @Component
-public class RoomActionDialog extends ActionDialogPresenter<Room> {
+public class RoomActionDialog extends ActionDialogPresenter<Room, Room> {
     @FXML
     public Button addBedButton;
     @FXML
@@ -29,10 +29,6 @@ public class RoomActionDialog extends ActionDialogPresenter<Room> {
     public TextField rentPriceField;
     @FXML
     public Button removeBedButton;
-
-    public RoomActionDialog() {
-        approved = false;
-    }
 
     @FXML
     private void initialize() {
@@ -65,7 +61,8 @@ public class RoomActionDialog extends ActionDialogPresenter<Room> {
         model.setRoomStandard(standardBox.getValue());
         model.setRentPrice(Double.parseDouble(rentPriceField.getText()));
         model.setBeds(bedList.getItems());
-        return true;
+
+        return tryDoAction(() -> onSave.accept(model));
     }
 
     @FXML
