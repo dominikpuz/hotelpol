@@ -8,4 +8,18 @@ public record CustomerFilter(
         String lastName,
         String phone,
         String email
-) implements IModelFilter {}
+) implements IModelFilter {
+    @Override
+    public IModelFilter mergeFilter(IModelFilter filterToMerge) {
+        if (!(filterToMerge instanceof CustomerFilter otherFilter)) {
+            throw new IllegalArgumentException("Cannot merge filter of different class");
+        }
+
+        return CustomerFilter.builder().
+                firstName(mergeValues(firstName, otherFilter.firstName)).
+                lastName(mergeValues(lastName, otherFilter.lastName)).
+                phone(mergeValues(phone, otherFilter.phone)).
+                email(mergeValues(email, otherFilter.email))
+                .build();
+    }
+}

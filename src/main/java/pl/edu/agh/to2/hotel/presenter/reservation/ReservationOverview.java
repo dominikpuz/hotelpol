@@ -74,6 +74,7 @@ public class ReservationOverview {
         editReservationButton.disableProperty().bind(Bindings.isEmpty(reservationTable.getSelectionModel().getSelectedItems()));
 
         reservationFilteringController.modelFilter.addListener(observable -> loadData());
+        reservationFilteringController.customerPickerSummaryController.setAddNewCustomerButtonEnabled(false);
 
         loadData();
     }

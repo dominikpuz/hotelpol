@@ -3,13 +3,19 @@ package pl.edu.agh.to2.hotel.presenter.customer;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.transformation.FilteredList;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.model.Customer;
+import pl.edu.agh.to2.hotel.model.filters.CustomerFilter;
+import pl.edu.agh.to2.hotel.model.filters.IModelFilter;
 import pl.edu.agh.to2.hotel.presenter.PickerDialogPresenter;
+import pl.edu.agh.to2.hotel.service.CustomerService;
+
+import java.util.List;
 
 @Component
 public class CustomerPicker extends PickerDialogPresenter<Customer> {
@@ -24,9 +30,16 @@ public class CustomerPicker extends PickerDialogPresenter<Customer> {
     @FXML
     public TableColumn<Customer, String> emailColumn;
     @FXML
-    public TextField searchField;
-    @FXML
     public Button okButton;
+    @FXML
+    private CustomerFilteringPresenter customerFilteringController;
+
+    CustomerService customerService;
+
+    @Autowired
+    public CustomerPicker(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @FXML
     private void initialize() {
@@ -38,26 +51,23 @@ public class CustomerPicker extends PickerDialogPresenter<Customer> {
         emailColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getEmail()));
 
         okButton.disableProperty().bind(Bindings.isEmpty(customerTable.getSelectionModel().getSelectedItems()));
+
+        customerFilteringController.modelFilter.addListener((observable, oldValue, newValue) -> loadData(newValue));
     }
 
     @Override
-    public void loadData() {
-        FilteredList<Customer> filteredData = new FilteredList<>(FXCollections.observableArrayList(modelList));
-        searchField.textProperty().addListener((observable, oldValue, newValue) ->
-                filteredData.setPredicate(createPredicate(newValue))
-        );
-        SortedList<Customer> sortableData = new SortedList<>(filteredData);
-        customerTable.setItems(sortableData);
-        sortableData.comparatorProperty().bind(customerTable.comparatorProperty());
+    public void loadData(IModelFilter customerFilter) {
+        CustomerFilter fullFilter = (CustomerFilter) customerFilter.mergeFilter(partialFilter);
+
+        List<Customer> filteredData = customerService.searchCustomers(fullFilter);
+        ObservableList<Customer> observableList = FXCollections.observableList(filteredData);
+        SortedList<Customer> sortedList = new SortedList<>(observableList);
+        customerTable.setItems(FXCollections.observableArrayList(filteredData));
+        sortedList.comparatorProperty().bind(customerTable.comparatorProperty());
     }
 
     @Override
     public void finalizeSelection() {
         model = customerTable.getSelectionModel().getSelectedItem();
-    }
-
-    @Override
-    protected boolean searchFindsModel(Customer model, String searchText) {
-        return (model.getFirstName() + model.getLastName()).toLowerCase().contains(searchText.toLowerCase());
     }
 }

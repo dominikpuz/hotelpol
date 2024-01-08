@@ -3,14 +3,20 @@ package pl.edu.agh.to2.hotel.presenter.room;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.transformation.FilteredList;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.model.Room;
+import pl.edu.agh.to2.hotel.model.filters.IModelFilter;
+import pl.edu.agh.to2.hotel.model.filters.RoomFilter;
 import pl.edu.agh.to2.hotel.persistance.StringBedTypeListConverter;
 import pl.edu.agh.to2.hotel.presenter.PickerDialogPresenter;
+import pl.edu.agh.to2.hotel.service.RoomService;
+
+import java.util.List;
 
 @Component
 public class RoomPicker extends PickerDialogPresenter<Room> {
@@ -18,8 +24,6 @@ public class RoomPicker extends PickerDialogPresenter<Room> {
     public Button okButton;
     @FXML
     public TableView<Room> roomTable;
-    @FXML
-    public TextField searchField;
     @FXML
     public TableColumn<Room, String> roomNumberColumn;
     @FXML
@@ -30,9 +34,15 @@ public class RoomPicker extends PickerDialogPresenter<Room> {
     public TableColumn<Room, String> roomStandardColumn;
     @FXML
     public TableColumn<Room, String> bedListColumn;
-    private final StringBedTypeListConverter converter;
+    @FXML
+    private RoomFilteringPresenter roomFilteringController;
 
-    public RoomPicker() {
+    private final StringBedTypeListConverter converter;
+    private final RoomService roomService;
+
+    @Autowired
+    public RoomPicker(RoomService roomService) {
+        this.roomService = roomService;
         converter = new StringBedTypeListConverter();
     }
 
@@ -49,26 +59,23 @@ public class RoomPicker extends PickerDialogPresenter<Room> {
         ));
 
         okButton.disableProperty().bind(Bindings.isEmpty(roomTable.getSelectionModel().getSelectedItems()));
+
+        roomFilteringController.modelFilter.addListener((observable, oldValue, newValue) -> loadData(newValue));
     }
 
     @Override
-    public void loadData() {
-        FilteredList<Room> filteredData = new FilteredList<>(FXCollections.observableArrayList(modelList));
-        searchField.textProperty().addListener((observable, oldValue, newValue) ->
-                filteredData.setPredicate(createPredicate(newValue))
-        );
-        SortedList<Room> sortableData = new SortedList<>(filteredData);
-        roomTable.setItems(sortableData);
-        sortableData.comparatorProperty().bind(roomTable.comparatorProperty());
+    public void loadData(IModelFilter roomFilter) {
+        RoomFilter fullFilter = (RoomFilter) roomFilter.mergeFilter(partialFilter);
+
+        List<Room> filteredData = roomService.searchRooms(fullFilter);
+        ObservableList<Room> observableList = FXCollections.observableList(filteredData);
+        SortedList<Room> sortedList = new SortedList<>(observableList);
+        roomTable.setItems(FXCollections.observableArrayList(filteredData));
+        sortedList.comparatorProperty().bind(roomTable.comparatorProperty());
     }
 
     @Override
     public void finalizeSelection() {
         model = roomTable.getSelectionModel().getSelectedItem();
     }
-    @Override
-    protected boolean searchFindsModel(Room model, String searchText) {
-        return model.getRoomNumber().toLowerCase().contains(searchText);
-    }
-
 }

@@ -16,6 +16,8 @@ import pl.edu.agh.to2.hotel.fxml.IFxmlPresenter;
 import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.model.Reservation;
 import pl.edu.agh.to2.hotel.model.Room;
+import pl.edu.agh.to2.hotel.model.filters.CustomerFilter;
+import pl.edu.agh.to2.hotel.model.filters.RoomFilter;
 import pl.edu.agh.to2.hotel.persistance.reservation.ReservationState;
 import pl.edu.agh.to2.hotel.presenter.customer.CustomerActionDialog;
 import pl.edu.agh.to2.hotel.presenter.customer.CustomerInfoDialog;
@@ -26,7 +28,6 @@ import pl.edu.agh.to2.hotel.presenter.room.RoomActionDialog;
 import pl.edu.agh.to2.hotel.presenter.room.RoomInfoDialog;
 import pl.edu.agh.to2.hotel.presenter.room.RoomPicker;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 import static pl.edu.agh.to2.hotel.fxml.FxmlContextType.*;
@@ -69,23 +70,23 @@ public class MainView implements IFxmlPresenter {
         return dialogStage;
     }
 
-    public Customer showCustomerPicker(Stage owner, List<Customer> customers) {
+    public Customer showCustomerPicker(Stage owner, CustomerFilter partialFilter) {
         FxmlContext<CustomerPicker> context = fxmlContextProvider.load(CUSTOMER_PICKER);
         Stage dialogStage = createDialog(context.view(), "Select customer", owner);
 
         CustomerPicker presenter = context.controller();
-        presenter.initializeDialog(dialogStage, customers);
+        presenter.initializeDialog(dialogStage, partialFilter);
 
         dialogStage.showAndWait();
         return presenter.getModel();
     }
 
-    public Room showRoomPicker(Stage owner, List<Room> rooms) {
+    public Room showRoomPicker(Stage owner, RoomFilter partialFilter) {
         FxmlContext<RoomPicker> context = fxmlContextProvider.load(ROOM_PICKER);
         Stage dialogStage = createDialog(context.view(), "Select room", owner);
 
         RoomPicker presenter = context.controller();
-        presenter.initializeDialog(dialogStage, rooms);
+        presenter.initializeDialog(dialogStage, partialFilter);
 
         dialogStage.showAndWait();
         return presenter.getModel();

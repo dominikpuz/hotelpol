@@ -1,24 +1,18 @@
 package pl.edu.agh.to2.hotel.presenter.reservation;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.model.Room;
-import pl.edu.agh.to2.hotel.model.filters.CustomerFilter;
 import pl.edu.agh.to2.hotel.model.filters.ReservationFilter;
-import pl.edu.agh.to2.hotel.model.filters.RoomFilter;
 import pl.edu.agh.to2.hotel.persistance.reservation.ReservationState;
 import pl.edu.agh.to2.hotel.presenter.customer.CustomerPickerSummary;
 import pl.edu.agh.to2.hotel.presenter.filter.FilteringPresenter;
 import pl.edu.agh.to2.hotel.presenter.filter.IllegalFilterInput;
 import pl.edu.agh.to2.hotel.presenter.room.RoomPickerSummary;
-import pl.edu.agh.to2.hotel.service.CustomerService;
-import pl.edu.agh.to2.hotel.service.RoomService;
 
 @Component
 @Scope("prototype")
@@ -34,25 +28,10 @@ public class ReservationFilteringPresenter extends FilteringPresenter<Reservatio
     @FXML
     public RoomPickerSummary roomPickerSummaryController;
 
-    private final CustomerService customerService;
-    private final RoomService roomService;
-
-    @Autowired
-    public ReservationFilteringPresenter(CustomerService customerService, RoomService roomService) {
-        this.customerService = customerService;
-        this.roomService = roomService;
-    }
-
     @Override
     @FXML
     protected void initialize() {
         reservationState.getItems().addAll(ReservationState.values());
-
-        var selectableCustomers = customerService.searchCustomers(CustomerFilter.builder().build());
-        customerPickerSummaryController.getSelectableCustomers().setValue(FXCollections.observableArrayList(selectableCustomers));
-
-        var selectableRooms = roomService.searchRooms(RoomFilter.builder().build());
-        roomPickerSummaryController.getSelectableRooms().setValue(FXCollections.observableArrayList(selectableRooms));
     }
 
     @Override
