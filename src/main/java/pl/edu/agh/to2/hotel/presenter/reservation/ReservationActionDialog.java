@@ -67,8 +67,6 @@ public class ReservationActionDialog extends ActionDialogPresenter<Reservation, 
         Customer customer = customerPickerSummaryController.getSelectedCustomer().get();
         Room room = roomPickerSummaryController.getSelectedRoom().get();
 
-        if(customer == null || room == null) return false;
-
         model.setStartDate(startDateField.getValue());
         model.setEndDate(endDateField.getValue());
         model.setCustomer(customer);

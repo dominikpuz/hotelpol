@@ -10,7 +10,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.customer.CustomerActionDialog">
+<?import pl.edu.agh.to2.hotel.fxml.validation.ValidationTextField?>
+<BorderPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.customer.CustomerActionDialog">
     <bottom>
         <HBox prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleOkAction" text="Ok">
@@ -60,22 +61,22 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <TextField fx:id="firstName" />
+                   <ValidationTextField fx:id="firstName" required="true"/>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <TextField fx:id="lastName" />
+                  <ValidationTextField fx:id="lastName" required="true" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <TextField fx:id="phoneNumber" />
+                  <ValidationTextField fx:id="phoneNumber" required="true" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <TextField fx:id="email" />
+                  <ValidationTextField fx:id="email" required="true" />
                </children>
             </HBox>
          </children>
