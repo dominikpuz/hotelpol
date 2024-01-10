@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="pl.edu.agh.to2.hotel.presenter.room.RoomPicker">
+<BorderPane prefHeight="476.0" prefWidth="831.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.room.RoomPicker">
     <top>
-        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-            <children>
-                <Label text="Search by room number" />
-                <TextField fx:id="searchField" maxWidth="200.0" />
-            </children>
-        </VBox>
+        <VBox alignment="CENTER" prefHeight="25.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
     </top>
     <center>
         <TableView fx:id="roomTable" prefHeight="200.0" prefWidth="600.0" BorderPane.alignment="CENTER">
@@ -31,8 +19,14 @@
             </columns>
         </TableView>
     </center>
+    <left>
+        <VBox prefHeight="258.0" prefWidth="25.0" BorderPane.alignment="CENTER" />
+    </left>
+    <right>
+        <fx:include fx:id="roomFiltering" source="RoomFilteringBox.fxml" />
+    </right>
     <bottom>
-        <HBox prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <Button fx:id="okButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleOkAction" text="Ok">
                 <HBox.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

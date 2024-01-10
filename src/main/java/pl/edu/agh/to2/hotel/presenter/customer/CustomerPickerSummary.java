@@ -1,12 +1,11 @@
 package pl.edu.agh.to2.hotel.presenter.customer;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lombok.Getter;
@@ -15,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.model.Customer;
+import pl.edu.agh.to2.hotel.model.filters.CustomerFilter;
 import pl.edu.agh.to2.hotel.presenter.MainView;
 import pl.edu.agh.to2.hotel.service.CustomerService;
 
@@ -22,9 +22,13 @@ import pl.edu.agh.to2.hotel.service.CustomerService;
 @Scope("prototype")
 public class CustomerPickerSummary {
     @FXML
+    private Button addNewCustomerButton;
+    @FXML
     private Text customerSummary;
+
+
     @Getter
-    private final ListProperty<Customer> selectableCustomers = new SimpleListProperty<>();
+    private final ObjectProperty<CustomerFilter> partialFilter = new SimpleObjectProperty<>(CustomerFilter.builder().build());
     @Getter
     private final ObjectProperty<Customer> selectedCustomer = new SimpleObjectProperty<>();
 
@@ -41,7 +45,7 @@ public class CustomerPickerSummary {
 
     @FXML
     private void initialize() {
-        selectableCustomers.addListener(((observable, oldValue, newValue) -> selectedCustomer.set(null)));
+        partialFilter.addListener(((observable, oldValue, newValue) -> selectedCustomer.set(null)));
 
         // customerSummary should always show selectedCustomer's first name and last name
         customerSummary.textProperty().bind(
@@ -58,9 +62,13 @@ public class CustomerPickerSummary {
         );
     }
 
+    public void setAddNewCustomerButtonEnabled(boolean isEnabled) {
+        this.addNewCustomerButton.visibleProperty().set(isEnabled);
+    }
+
     @FXML
     public void handleSelectCustomer(ActionEvent ignoredEvent) {
-        Customer newSelectedCustomer = mainController.showCustomerPicker(dialogStage, selectableCustomers);
+        Customer newSelectedCustomer = mainController.showCustomerPicker(dialogStage, partialFilter.get());
         this.selectedCustomer.set(newSelectedCustomer);
     }
 

@@ -1,19 +1,16 @@
 package pl.edu.agh.to2.hotel.presenter.reservation;
 
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.model.Reservation;
 import pl.edu.agh.to2.hotel.model.Room;
-import pl.edu.agh.to2.hotel.model.filters.CustomerFilter;
+import pl.edu.agh.to2.hotel.model.filters.RoomFilter;
 import pl.edu.agh.to2.hotel.presenter.ActionDialogPresenter;
 import pl.edu.agh.to2.hotel.presenter.customer.CustomerPickerSummary;
 import pl.edu.agh.to2.hotel.presenter.room.RoomPickerSummary;
-import pl.edu.agh.to2.hotel.service.CustomerService;
-import pl.edu.agh.to2.hotel.service.RoomService;
 
 @Component
 public class ReservationActionDialog extends ActionDialogPresenter<Reservation, Reservation> {
@@ -26,27 +23,29 @@ public class ReservationActionDialog extends ActionDialogPresenter<Reservation, 
     @FXML
     public CustomerPickerSummary customerPickerSummaryController;
 
-    private final CustomerService customerService;
-    private final RoomService roomService;
-
-    public ReservationActionDialog(CustomerService customerService, RoomService roomService) {
-        this.customerService = customerService;
-        this.roomService = roomService;
-    }
-
     @FXML
     private void initialize() {
-        this.updateSelectableRooms();
-        var selectableCustomers = customerService.searchCustomers(CustomerFilter.builder().build());
-        customerPickerSummaryController.getSelectableCustomers().setValue(FXCollections.observableArrayList(selectableCustomers));
-
         roomPickerSummaryController.getSelectRoomButton().disableProperty().bind(
                 Bindings.isNull(startDateField.valueProperty())
                         .or(Bindings.isNull(endDateField.valueProperty()))
         );
 
-        startDateField.valueProperty().addListener((observable, oldValue, newValue) -> this.updateSelectableRooms());
-        endDateField.valueProperty().addListener((observable, oldValue, newValue) -> this.updateSelectableRooms());
+        startDateField.valueProperty().addListener
+                ((observable, oldValue, newValue) -> {
+                    RoomFilter rf = RoomFilter.builder()
+                            .startAvailabilityDate(newValue)
+                            .endAvailabilityDate(endDateField.getValue())
+                            .build();
+                    roomPickerSummaryController.getPartialFilter().set(rf);
+                });
+        endDateField.valueProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    RoomFilter rf = RoomFilter.builder()
+                            .startAvailabilityDate(startDateField.getValue())
+                            .endAvailabilityDate(newValue)
+                            .build();
+                    roomPickerSummaryController.getPartialFilter().set(rf);
+                });
 
         roomPickerSummaryController.setDialogStage(dialogStage);
         customerPickerSummaryController.setDialogStage(dialogStage);
@@ -76,10 +75,5 @@ public class ReservationActionDialog extends ActionDialogPresenter<Reservation, 
         model.setRoom(room);
 
         return tryDoDefaultAction(model);
-    }
-
-    private void updateSelectableRooms() {
-        var selectableRooms = roomService.findAvailableRoomsBetweenDates(startDateField.getValue(), endDateField.getValue());
-        roomPickerSummaryController.getSelectableRooms().setValue(FXCollections.observableArrayList(selectableRooms));
     }
 }

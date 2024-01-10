@@ -26,7 +26,7 @@ public abstract class FilteringPresenter <ModelFilter extends IModelFilter> impl
     @FXML
     protected abstract void initialize();
 
-    public abstract ModelFilter createFilter() throws IllegalFilterInput;
+    protected abstract ModelFilter createFilter() throws IllegalFilterInput;
 
     @FXML
     public void handleFilter() {

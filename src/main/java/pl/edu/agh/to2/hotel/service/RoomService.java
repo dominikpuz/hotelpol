@@ -47,7 +47,10 @@ public class RoomService {
     }
 
     public List<Room> searchRooms(RoomFilter filter) {
-        return roomRepository.searchRooms(filter, PageRequest.of(0, 10)).stream().map(modelEntityMapper::mapRoomFromEntity).toList();
+        return roomRepository.searchRooms(filter, PageRequest.of(0, 10))
+                .stream()
+                .map(modelEntityMapper::mapRoomFromEntity)
+                .toList();
     }
 
     public Room createNewRoom(Room room) {

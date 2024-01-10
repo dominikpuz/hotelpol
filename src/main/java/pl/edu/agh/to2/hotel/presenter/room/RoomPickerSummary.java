@@ -1,9 +1,7 @@
 package pl.edu.agh.to2.hotel.presenter.room;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.model.Room;
+import pl.edu.agh.to2.hotel.model.filters.RoomFilter;
 import pl.edu.agh.to2.hotel.presenter.MainView;
 
 @Component
@@ -28,7 +27,7 @@ public class RoomPickerSummary {
     private Text roomSummary;
 
     @Getter
-    private final ListProperty<Room> selectableRooms = new SimpleListProperty<>();
+    private final ObjectProperty<RoomFilter> partialFilter = new SimpleObjectProperty<>(RoomFilter.builder().build());
     @Getter
     private final ObjectProperty<Room> selectedRoom = new SimpleObjectProperty<>();
 
@@ -43,7 +42,8 @@ public class RoomPickerSummary {
 
     @FXML
     private void initialize() {
-        selectableRooms.addListener(((observable, oldValue, newValue) -> selectedRoom.set(null)));
+        partialFilter.addListener(((observable, oldValue, newValue) -> selectedRoom.set(null)));
+//        selectableRooms.addListener(((observable, oldValue, newValue) -> selectedRoom.set(null)));
 
         roomSummary.textProperty().bind(
                 Bindings.createStringBinding(
@@ -60,7 +60,7 @@ public class RoomPickerSummary {
     }
 
     public void handleSelectRoom(ActionEvent ignoreEvent) {
-        Room newSelectedRoom = mainController.showRoomPicker(dialogStage, selectableRooms);
+        Room newSelectedRoom = mainController.showRoomPicker(dialogStage, partialFilter.get());
         this.selectedRoom.set(newSelectedRoom);
     }
 }
