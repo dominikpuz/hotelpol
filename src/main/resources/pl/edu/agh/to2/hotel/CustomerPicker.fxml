@@ -4,19 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import pl.edu.agh.to2.hotel.fxml.components.CustomerTable?>
 <BorderPane prefHeight="476.0" prefWidth="705.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.customer.CustomerPicker">
     <top>
         <VBox alignment="CENTER" prefHeight="25.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
     </top>
     <center>
-        <TableView fx:id="customerTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <columns>
-                <TableColumn fx:id="firstNameColumn" prefWidth="85.0" text="First name" />
-                <TableColumn fx:id="lastNameColumn" prefWidth="95.0" text="Last name" />
-                <TableColumn fx:id="phoneNumberColumn" prefWidth="137.0" text="Phone number" />
-                <TableColumn fx:id="emailColumn" prefWidth="162.0" text="Email" />
-            </columns>
-        </TableView>
+        <CustomerTable fx:id="customerTable"/>
     </center>
     <left>
         <VBox prefHeight="258.0" prefWidth="25.0" BorderPane.alignment="CENTER" />

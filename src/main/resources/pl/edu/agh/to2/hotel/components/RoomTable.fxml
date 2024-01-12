@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="VBox" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml"
+         prefHeight="480.0" prefWidth="600.0" minHeight="500" minWidth="600">
+
+        <TableView fx:id="tableView" BorderPane.alignment="CENTER" minHeight="380" minWidth="600">
+            <columns>
+                <TableColumn fx:id="roomNumberColumn" text="Room number"/>
+                <TableColumn fx:id="floorColumn" text="Floor"/>
+                <TableColumn fx:id="rentPriceColumn" text="Rent price"/>
+                <TableColumn fx:id="roomStandardColumn" text="Room standard"/>
+                <TableColumn fx:id="bedListColumn" text="List of beds"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+
+        <!-- The Pagination component -->
+        <Pagination fx:id="tablePagination"/>
+</fx:root>

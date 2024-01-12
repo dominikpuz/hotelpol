@@ -3,28 +3,24 @@ package pl.edu.agh.to2.hotel.presenter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
-import lombok.Getter;
 import pl.edu.agh.to2.hotel.fxml.IFxmlPresenter;
 import pl.edu.agh.to2.hotel.model.IPresentableModel;
-import pl.edu.agh.to2.hotel.model.filters.IModelFilter;
+import pl.edu.agh.to2.hotel.model.filters.IMergeableFilter;
 
-public abstract class PickerDialogPresenter<Model extends IPresentableModel> implements IFxmlPresenter {
-    protected IModelFilter partialFilter;
-    @Getter
-    protected Model model;
+import java.util.function.Consumer;
+
+public abstract class PickerDialogPresenter<Model extends IPresentableModel, Filter extends IMergeableFilter<Filter>> implements IFxmlPresenter {
+    protected Filter partialFilter;
     private Stage dialogStage;
+    private Consumer<Model> onModelPicked;
 
-    /** Loads data from model to FXML components */
-    public abstract void loadData(IModelFilter filter);
-
-    public abstract void finalizeSelection();
+    protected abstract Model getSelectedModel();
 
     /** Initializes dialog by injecting fxml stage and Model objects. */
-    public void initializeDialog(Stage stage, IModelFilter partialFilter)  {
+    public void initializeDialog(Stage stage, Filter partialFilter, Consumer<Model> onModelPicked)  {
         this.dialogStage = stage;
         this.partialFilter = partialFilter;
-        this.model = null;
-        loadData(partialFilter);
+        this.onModelPicked = onModelPicked;
     }
 
     @FXML
@@ -34,7 +30,7 @@ public abstract class PickerDialogPresenter<Model extends IPresentableModel> imp
 
     @FXML
     public void handleOkAction(ActionEvent ignoredEvent) {
-        finalizeSelection();
+        onModelPicked.accept(getSelectedModel());
         dialogStage.close();
     }
 }

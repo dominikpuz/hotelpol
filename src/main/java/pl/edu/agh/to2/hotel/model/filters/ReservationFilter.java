@@ -12,13 +12,11 @@ public record ReservationFilter(
         LocalDate startDate,
         LocalDate endDate,
         ReservationState reservationState
-) implements IModelFilter {
-    @Override
-    public IModelFilter mergeFilter(IModelFilter filterToMerge) {
-        if (!(filterToMerge instanceof ReservationFilter otherFilter)) {
-            throw new IllegalArgumentException("Cannot merge filter of different class");
-        }
+) implements IMergeableFilter<ReservationFilter> {
 
+    @Override
+    public ReservationFilter mergeFilter(ReservationFilter otherFilter) {
+        if(otherFilter == null) return this;
         return ReservationFilter.builder()
                 .roomId(mergeValues(roomId, otherFilter.roomId))
                 .customerId(mergeValues(customerId, otherFilter.customerId))

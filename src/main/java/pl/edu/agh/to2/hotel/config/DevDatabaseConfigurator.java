@@ -56,7 +56,17 @@ public class DevDatabaseConfigurator {
                         new CustomerEntity("Maria", "Szymańska", "554433221", "mariaszymanska@gmail.com"),
                         new CustomerEntity("Tomasz", "Kowalczyk", "+48777223311", "tomaszkowalczyk@wp.pl"),
                         new CustomerEntity("Karolina", "Jankowska", "+48666666666", "karolinajankowska@gmail.com"),
-                        new CustomerEntity("Marcin", "Lewandowski", "999888777", "marcinlewandowski@wp.pl")
+                        new CustomerEntity("Marcin", "Lewandowski", "999888777", "marcinlewandowski@wp.pl"),
+                        new CustomerEntity("Adam", "Nowicki", "+48888888888", "adamnowicki@gmail.com"),
+                        new CustomerEntity("Ewa", "Kowal", "+48771112233", "ewakowal@wp.pl"),
+                        new CustomerEntity("Robert", "Czarnecki", "777666555", "robertczarnecki@gmail.com"),
+                        new CustomerEntity("Magda", "Dąbrowska", "+48555112233", "magdadabrowska@wp.pl"),
+                        new CustomerEntity("Kamil", "Wiśniewski", "+48777888999", "kamilwisniewski@gmail.com"),
+                        new CustomerEntity("Monika", "Kozłowska", "111222333", "monikakozlowska@wp.pl"),
+                        new CustomerEntity("Bartosz", "Krawczyk", "+48666331122", "bartoszkrawczyk@gmail.com"),
+                        new CustomerEntity("Katarzyna", "Zając", "123654789", "katarzynazajac@wp.pl"),
+                        new CustomerEntity("Paweł", "Kaczmarek", "+48507123456", "pawelkaczmarek@gmail.com"),
+                        new CustomerEntity("Alicja", "Witkowska", "+48779998888", "alicjawitkowska@wp.pl")
                 );
                 customerRepository.saveAll(customers);
 

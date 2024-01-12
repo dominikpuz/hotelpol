@@ -1,5 +1,6 @@
 package pl.edu.agh.to2.hotel.service;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.hotel.mapper.ModelEntityMapper;
@@ -46,11 +47,9 @@ public class RoomService {
         return roomRepository.isRoomAvailableBetweenDates(room.getId(), startDate, endDate);
     }
 
-    public List<Room> searchRooms(RoomFilter filter) {
-        return roomRepository.searchRooms(filter, PageRequest.of(0, 10))
-                .stream()
-                .map(modelEntityMapper::mapRoomFromEntity)
-                .toList();
+    public Page<Room> searchRooms(RoomFilter filter, int page) {
+        return roomRepository.searchRooms(filter, PageRequest.of(page, 14))
+                .map(modelEntityMapper::mapRoomFromEntity);
     }
 
     public Room createNewRoom(Room room) {

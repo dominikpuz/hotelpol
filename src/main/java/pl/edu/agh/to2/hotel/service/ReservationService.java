@@ -1,5 +1,6 @@
 package pl.edu.agh.to2.hotel.service;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.hotel.mapper.ModelEntityMapper;
@@ -44,9 +45,9 @@ public class ReservationService {
                 .stream().map(modelEntityMapper::mapReservationFromEntity).toList();
     }
 
-    public List<Reservation> searchReservations(ReservationFilter filter) {
-        List<ReservationEntity> reservationEntities = reservationRepository.searchReservations(filter, PageRequest.of(0, 10));
-        return reservationEntities.stream().map(modelEntityMapper::mapReservationFromEntity).toList();
+    public Page<Reservation> searchReservations(ReservationFilter filter, int page) {
+        Page<ReservationEntity> reservationEntities = reservationRepository.searchReservations(filter, PageRequest.of(page, 14));
+        return reservationEntities.map(modelEntityMapper::mapReservationFromEntity);
     }
 
     public Reservation updateReservationState(Reservation reservation, ReservationState updatedState) {
