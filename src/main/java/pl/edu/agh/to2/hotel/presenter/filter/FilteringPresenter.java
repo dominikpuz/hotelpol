@@ -5,14 +5,14 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import pl.edu.agh.to2.hotel.fxml.IFxmlPresenter;
-import pl.edu.agh.to2.hotel.model.filters.IModelFilter;
+import pl.edu.agh.to2.hotel.model.filters.IMergeableFilter;
 
 /**
  * Base class for model filter presenters. Extend it to create a presenter managing controls which will use them to create {@code ModelFilter}.
  * Don't forget to set {@code modelFilter}'s starting value
  * @param <ModelFilter>
  */
-public abstract class FilteringPresenter <ModelFilter extends IModelFilter> implements IFxmlPresenter {
+public abstract class FilteringPresenter <ModelFilter extends IMergeableFilter<ModelFilter>> implements IFxmlPresenter {
     public final ObjectProperty<ModelFilter> modelFilter;
 
     public FilteringPresenter() {

@@ -1,6 +1,6 @@
 package pl.edu.agh.to2.hotel.model.filters;
 
-public interface IModelFilter {
+public interface IMergeableFilter<Filter> {
     /**
      * merges two filter fields' values
      * @param myValue - this filter field's value
@@ -22,5 +22,5 @@ public interface IModelFilter {
      * @param filterToMerge filter to take non-null conditions from
      * @return filter with merged conditions
      */
-    IModelFilter mergeFilter(IModelFilter filterToMerge);
+    Filter mergeFilter(Filter filterToMerge);
 }

@@ -1,5 +1,6 @@
 package pl.edu.agh.to2.hotel.service;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.to2.hotel.mapper.ModelEntityMapper;
@@ -24,8 +25,9 @@ public class CustomerService {
         this.modelEntityMapper = modelEntityMapper;
     }
 
-    public List<Customer> searchCustomers(CustomerFilter filter) {
-        return customerRepository.searchCustomers(filter, PageRequest.of(0, 20)).stream().map(modelEntityMapper::mapCustomerFromEntity).toList();
+    public Page<Customer> searchCustomers(CustomerFilter filter, int page) {
+        return customerRepository.searchCustomers(filter, PageRequest.of(page, 14))
+                .map(modelEntityMapper::mapCustomerFromEntity);
     }
 
     public Optional<Customer> findCustomerById(long id) {

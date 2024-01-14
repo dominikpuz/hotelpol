@@ -1,25 +1,16 @@
 package pl.edu.agh.to2.hotel.presenter.reservation;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import org.springframework.stereotype.Component;
+import pl.edu.agh.to2.hotel.fxml.components.ReservationTable;
 import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.model.Reservation;
 import pl.edu.agh.to2.hotel.model.Room;
 import pl.edu.agh.to2.hotel.presenter.MainView;
 import pl.edu.agh.to2.hotel.service.ReservationService;
-
-import java.time.LocalDate;
 
 @Component
 public class ReservationOverview {
@@ -32,21 +23,9 @@ public class ReservationOverview {
     @FXML
     public Button addReservationButton;
     @FXML
-    public TableColumn<Reservation, String> roomNumberColumn;
-    @FXML
-    public TableColumn<Reservation, String> customerColumn;
-    @FXML
-    public TableColumn<Reservation, LocalDate> startDateColumn;
-    @FXML
-    public TableColumn<Reservation, LocalDate> endDateColumn;
-    @FXML
-    public TableColumn<Reservation, String> reservationStateColumn;
-    @FXML
-    public TableColumn<Reservation, Number> rentPriceColumn;
-    @FXML
     public Button showReservationButton;
     @FXML
-    private TableView<Reservation> reservationTable;
+    private ReservationTable reservationTable;
     @FXML
     public ReservationFilteringPresenter reservationFilteringController;  // the field name has to end with "Controller" so the JavaFX parses it correctly
 
@@ -60,35 +39,22 @@ public class ReservationOverview {
 
     @FXML
     private void initialize() {
-        reservationTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        roomNumberColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getRoom().getRoomNumber()));
-        customerColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getCustomer().getFirstName() + " " + param.getValue().getCustomer().getLastName()));
-        startDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getStartDate()));
-        endDateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getEndDate()));
-        reservationStateColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getState().toString()));
-        rentPriceColumn.setCellValueFactory(param -> new SimpleDoubleProperty(param.getValue().getRoom().getRentPrice()));
-
+        reservationTable.setPageSupplier(page -> reservationService.searchReservations(reservationFilteringController.modelFilter.get(), page));
         showCustomerButton.disableProperty().bind(Bindings.isEmpty(reservationTable.getSelectionModel().getSelectedItems()));
         showRoomButton.disableProperty().bind(Bindings.isEmpty(reservationTable.getSelectionModel().getSelectedItems()));
         showReservationButton.disableProperty().bind(Bindings.isEmpty(reservationTable.getSelectionModel().getSelectedItems()));
         editReservationButton.disableProperty().bind(Bindings.isEmpty(reservationTable.getSelectionModel().getSelectedItems()));
 
-        reservationFilteringController.modelFilter.addListener(observable -> loadData());
+        reservationFilteringController.modelFilter.addListener(observable -> reservationTable.reloadDataAndShowFirstPage());
         reservationFilteringController.customerPickerSummaryController.setAddNewCustomerButtonEnabled(false);
 
-        loadData();
-    }
-
-    public void loadData() {
-        ObservableList<Reservation> reservations = FXCollections.observableArrayList(
-                reservationService.searchReservations(reservationFilteringController.modelFilter.get()));
-        reservationTable.setItems(reservations);
+        reservationTable.reloadDataAndShowFirstPage();
     }
     @FXML
     public void handleAddReservation(ActionEvent ignoreEvent) {
         mainController.showAddReservationDialog(new Reservation(), toSave -> {
             reservationService.addNewReservation(toSave);
-            loadData();
+            reservationTable.reloadData();
         });
     }
 
@@ -98,7 +64,7 @@ public class ReservationOverview {
         if(reservation == null) return;
         mainController.showEditReservationDialog(reservation, toUpdate -> {
            reservationService.updateReservation(toUpdate);
-           loadData();
+           reservationTable.reloadData();
         });
     }
     @FXML
@@ -107,7 +73,7 @@ public class ReservationOverview {
         if(reservation == null) return;
         mainController.showReservationInfo(reservation, updatedState -> {
             reservationService.updateReservationState(reservation, updatedState);
-            loadData();
+            reservationTable.reloadData();
         });
     }
 

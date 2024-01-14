@@ -17,13 +17,10 @@ public record RoomFilter(
         Double maxRentPrice,
         LocalDate startAvailabilityDate,
         LocalDate endAvailabilityDate
-) implements IModelFilter {
+) implements IMergeableFilter<RoomFilter> {
     @Override
-    public IModelFilter mergeFilter(IModelFilter filterToMerge) {
-        if (!(filterToMerge instanceof RoomFilter otherFilter)) {
-            throw new IllegalArgumentException("Cannot merge filter of different class");
-        }
-
+    public RoomFilter mergeFilter(RoomFilter otherFilter) {
+        if(otherFilter == null) return this;
         return RoomFilter.builder()
                 .roomNumber(mergeValues(roomNumber, otherFilter.roomNumber))
                 .floor(mergeValues(floor, otherFilter.floor))

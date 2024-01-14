@@ -1,84 +1,53 @@
 package pl.edu.agh.to2.hotel.presenter.room;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.fxml.IFxmlPresenter;
+import pl.edu.agh.to2.hotel.fxml.components.RoomTable;
 import pl.edu.agh.to2.hotel.model.Room;
-import pl.edu.agh.to2.hotel.persistance.StringBedTypeListConverter;
 import pl.edu.agh.to2.hotel.presenter.MainView;
 import pl.edu.agh.to2.hotel.service.RoomService;
 
 
 @Component
 public class RoomOverview implements IFxmlPresenter {
+
     @FXML
-    public TableView<Room> roomTable;
+    private RoomTable roomTable;
     @FXML
     public Button addRoomButton;
     @FXML
     public Button editRoomButton;
     @FXML
-    public TableColumn<Room, String> roomNumberColumn;
-    @FXML
-    public TableColumn<Room, Number> floorColumn;
-    @FXML
-    public TableColumn<Room, Number> rentPriceColumn;
-    @FXML
-    public TableColumn<Room, String> roomStandardColumn;
-    @FXML
-    public TableColumn<Room, String> bedListColumn;
-    @FXML
-    public RoomFilteringPresenter roomFilteringController;  // the field name has to end with "Controller" so the JavaFX parses it correctly
+    public RoomFilteringPresenter roomFilteringController;
 
     private final MainView mainController;
     private final RoomService roomService;
-    private final StringBedTypeListConverter bedTypeListConverter;
 
     @Autowired
     public RoomOverview(RoomService roomService, MainView mainController) {
         this.roomService = roomService;
         this.mainController = mainController;
-        bedTypeListConverter = new StringBedTypeListConverter();
     }
 
     @FXML
     private void initialize() {
-        roomTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        roomNumberColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getRoomNumber()));
-        floorColumn.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getFloor()));
-        rentPriceColumn.setCellValueFactory(param -> new SimpleDoubleProperty(param.getValue().getRentPrice()));
-        roomStandardColumn.setCellValueFactory(param -> new SimpleStringProperty(
-                param.getValue().getRoomStandard().toString()));
-        bedListColumn.setCellValueFactory(param -> new SimpleStringProperty(
-                bedTypeListConverter.convertToDatabaseColumn(param.getValue().getBeds())));
-
+        roomTable.setPageSupplier((page) -> roomService.searchRooms(roomFilteringController.modelFilter.get(), page));
         editRoomButton.disableProperty().bind(Bindings.isEmpty(roomTable.getSelectionModel().getSelectedItems()));
 
-        roomFilteringController.modelFilter.addListener(observable -> loadData());
-        loadData();
-    }
-
-    private void loadData() {
-        ObservableList<Room> rooms = FXCollections.observableArrayList(
-                roomService.searchRooms(roomFilteringController.modelFilter.get()));
-        roomTable.setItems(rooms);
+        roomFilteringController.modelFilter.addListener(observable -> roomTable.reloadDataAndShowFirstPage());
+        roomTable.reloadDataAndShowFirstPage();
     }
 
     @FXML
     public void handleAddRoom(ActionEvent ignoreEvent) {
         mainController.showAddRoomDialog(new Room(), toSave -> {
             roomService.createNewRoom(toSave);
-            loadData();
+            roomTable.reloadData();
         });
     }
 
@@ -89,7 +58,7 @@ public class RoomOverview implements IFxmlPresenter {
 
         mainController.showEditRoomDialog(room, toUpdate -> {
             roomService.updateRoom(toUpdate);
-            loadData();
+            roomTable.reloadData();
         });
     }
 }

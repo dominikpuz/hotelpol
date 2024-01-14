@@ -60,7 +60,6 @@ public class RoomPickerSummary {
     }
 
     public void handleSelectRoom(ActionEvent ignoreEvent) {
-        Room newSelectedRoom = mainController.showRoomPicker(dialogStage, partialFilter.get());
-        this.selectedRoom.set(newSelectedRoom);
+        mainController.showRoomPicker(dialogStage, partialFilter.get(), selectedRoom::set);
     }
 }

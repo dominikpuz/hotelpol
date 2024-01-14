@@ -68,8 +68,7 @@ public class CustomerPickerSummary {
 
     @FXML
     public void handleSelectCustomer(ActionEvent ignoredEvent) {
-        Customer newSelectedCustomer = mainController.showCustomerPicker(dialogStage, partialFilter.get());
-        this.selectedCustomer.set(newSelectedCustomer);
+        mainController.showCustomerPicker(dialogStage, partialFilter.get(), selectedCustomer::set);
     }
 
     @FXML

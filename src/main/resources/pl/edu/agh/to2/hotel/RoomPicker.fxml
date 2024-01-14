@@ -4,20 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import pl.edu.agh.to2.hotel.fxml.components.RoomTable?>
 <BorderPane prefHeight="476.0" prefWidth="831.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.room.RoomPicker">
     <top>
         <VBox alignment="CENTER" prefHeight="25.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
     </top>
     <center>
-        <TableView fx:id="roomTable" prefHeight="200.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-            <columns>
-                <TableColumn fx:id="roomNumberColumn" prefWidth="88.0" text="Room number" />
-                <TableColumn fx:id="floorColumn" prefWidth="49.0" text="Floor" />
-                <TableColumn fx:id="priceColumn" prefWidth="90.0" text="Price" />
-                <TableColumn fx:id="roomStandardColumn" prefWidth="133.0" text="Room standard" />
-                <TableColumn fx:id="bedListColumn" prefWidth="239.0" text="List of beds" />
-            </columns>
-        </TableView>
+        <RoomTable fx:id="roomTable"/>
     </center>
     <left>
         <VBox prefHeight="258.0" prefWidth="25.0" BorderPane.alignment="CENTER" />

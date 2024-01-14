@@ -29,6 +29,7 @@ import pl.edu.agh.to2.hotel.presenter.room.RoomInfoDialog;
 import pl.edu.agh.to2.hotel.presenter.room.RoomPicker;
 
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static pl.edu.agh.to2.hotel.fxml.FxmlContextType.*;
 
@@ -70,26 +71,24 @@ public class MainView implements IFxmlPresenter {
         return dialogStage;
     }
 
-    public Customer showCustomerPicker(Stage owner, CustomerFilter partialFilter) {
+    public void showCustomerPicker(Stage owner, CustomerFilter partialFilter, Consumer<Customer> onCustomerChosen) {
         FxmlContext<CustomerPicker> context = fxmlContextProvider.load(CUSTOMER_PICKER);
         Stage dialogStage = createDialog(context.view(), "Select customer", owner);
 
         CustomerPicker presenter = context.controller();
-        presenter.initializeDialog(dialogStage, partialFilter);
+        presenter.initializeDialog(dialogStage, partialFilter, onCustomerChosen);
 
         dialogStage.showAndWait();
-        return presenter.getModel();
     }
 
-    public Room showRoomPicker(Stage owner, RoomFilter partialFilter) {
+    public void showRoomPicker(Stage owner, RoomFilter partialFilter, Consumer<Room> onRoomChosen) {
         FxmlContext<RoomPicker> context = fxmlContextProvider.load(ROOM_PICKER);
         Stage dialogStage = createDialog(context.view(), "Select room", owner);
 
         RoomPicker presenter = context.controller();
-        presenter.initializeDialog(dialogStage, partialFilter);
+        presenter.initializeDialog(dialogStage, partialFilter, onRoomChosen);
 
         dialogStage.showAndWait();
-        return presenter.getModel();
     }
 
     public void showAddReservationDialog(Reservation reservation, Consumer<Reservation> onSave) {

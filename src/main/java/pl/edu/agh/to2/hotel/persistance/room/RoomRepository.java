@@ -1,6 +1,7 @@
 package pl.edu.agh.to2.hotel.persistance.room;
 
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -44,6 +45,6 @@ public interface RoomRepository extends JpaRepository<RoomEntity, Long> {
                 "OR (:#{#filter.startAvailabilityDate()} < res.endDate AND res.endDate <= :#{#filter.endAvailabilityDate()}) " +
                 "OR (:#{#filter.startAvailabilityDate()} >= res.startDate AND :#{#filter.endAvailabilityDate()} <= res.endDate) " +
                 "OR (:#{#filter.startAvailabilityDate()} <= res.startDate AND :#{#filter.endAvailabilityDate()} >= res.endDate)))")
-    List<RoomEntity> searchRooms(@Param("filter") RoomFilter filter, Pageable pageable);
+    Page<RoomEntity> searchRooms(@Param("filter") RoomFilter filter, Pageable pageable);
 
 }

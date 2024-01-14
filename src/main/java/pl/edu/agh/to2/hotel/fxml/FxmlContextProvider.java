@@ -1,6 +1,7 @@
 package pl.edu.agh.to2.hotel.fxml;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import lombok.NoArgsConstructor;
 import org.springframework.context.ApplicationContext;
@@ -32,6 +33,18 @@ public class FxmlContextProvider {
 
     public void setApplicationContext(final ApplicationContext applicationContext) {
         FxmlContextProvider.applicationContext = applicationContext;
+    }
+
+    public static void loadComponent(String componentName, Object parent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(componentName));
+        fxmlLoader.setRoot(parent);
+        fxmlLoader.setController(parent);
+
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private URL getFxmlFileLocation(FxmlContextType type) {
