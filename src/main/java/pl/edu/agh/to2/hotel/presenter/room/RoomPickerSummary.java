@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lombok.Getter;
@@ -24,7 +25,7 @@ public class RoomPickerSummary {
     @Getter
     private Button selectRoomButton;
     @FXML
-    private Text roomSummary;
+    private Label roomSummary;
 
     @Getter
     private final ObjectProperty<RoomFilter> partialFilter = new SimpleObjectProperty<>(RoomFilter.builder().build());

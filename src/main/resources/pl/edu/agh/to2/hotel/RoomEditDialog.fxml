@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <?import pl.edu.agh.to2.hotel.fxml.validation.ValidationTextField?>
-<BorderPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.room.RoomActionDialog">
+<BorderPane stylesheets="@base_app_style.css" styleClass="main_app_container" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.room.RoomActionDialog">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -28,23 +28,23 @@
             <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="108.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Room number" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Label text="Floor" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Label text="Rent price" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Label text="Room standard" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <Label text="Beds" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Label text="Room number" styleClass="action_label" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label text="Floor" styleClass="action_label" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label text="Rent price" styleClass="action_label" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Label text="Room standard" styleClass="action_label" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Label text="Beds" styleClass="action_label" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
             <ValidationTextField fx:id="roomNumberField" maxWidth="150.0" GridPane.columnIndex="1" />
             <ValidationTextField fx:id="floorField" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ValidationTextField fx:id="rentPriceField" maxWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ChoiceBox fx:id="standardBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
-                   <Button fx:id="addBedButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleAddBedAction" text="Add">
+                   <Button fx:id="addBedButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleAddBedAction" text="Add" styleClass="action_button">
                        <HBox.margin>
                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                        </HBox.margin>
                    </Button>
-                   <Button fx:id="removeBedButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleRemoveBedAction" text="Remove">
+                   <Button fx:id="removeBedButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleRemoveBedAction" text="Remove" styleClass="action_button">
                        <HBox.margin>
                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                        </HBox.margin>
@@ -56,22 +56,22 @@
                   </ChoiceBox>
                </children>
             </HBox>
-            <ListView fx:id="bedList" maxHeight="70.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
+            <ListView maxWidth="250" fx:id="bedList" maxHeight="70.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
          </children>
       </GridPane>
    </center>
-   <bottom>
-      <HBox prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-          <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleOkAction" text="Ok">
-              <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-              </HBox.margin>
-          </Button>
-          <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleCancelAction" text="Cancel">
-              <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-              </HBox.margin>
-          </Button>
-      </HBox>
-   </bottom>
+    <bottom>
+        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="Infinity" BorderPane.alignment="CENTER">
+            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleOkAction" styleClass="action_button" text="Ok">
+                <HBox.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </HBox.margin>
+            </Button>
+            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleCancelAction" styleClass="action_button" text="Cancel">
+                <HBox.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </HBox.margin>
+            </Button>
+        </HBox>
+    </bottom>
 </BorderPane>

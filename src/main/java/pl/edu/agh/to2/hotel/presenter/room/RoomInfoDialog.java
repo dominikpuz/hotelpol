@@ -2,6 +2,7 @@ package pl.edu.agh.to2.hotel.presenter.room;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import org.springframework.stereotype.Component;
@@ -12,13 +13,13 @@ import pl.edu.agh.to2.hotel.presenter.InfoDialogPresenter;
 @Component
 public class RoomInfoDialog extends InfoDialogPresenter<Room> {
     @FXML
-    public Text floorField;
+    public Label floorField;
     @FXML
-    public Text roomStandardField;
+    public Label roomStandardField;
     @FXML
-    public Text rentPriceField;
+    public Label rentPriceField;
     @FXML
-    public Text roomNumberField;
+    public Label roomNumberField;
     @FXML
     public ListView<BedType> bedsList;
 

@@ -13,7 +13,7 @@
 
 
 <?import javafx.geometry.Insets?>
-<BorderPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.reservation.ReservationInfoDialog">
+<BorderPane stylesheets="@base_app_style.css" styleClass="main_app_container" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.reservation.ReservationInfoDialog">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -29,43 +29,43 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <children>
-                  <Label text="First name" />
-                  <Text fx:id="firstNameField" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Label styleClass="action_label" text="First name" />
+                  <Label styleClass="action_label" fx:id="firstNameField" text="Text" />
                </children>
             </VBox>
             <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                <children>
-                  <Label text="Last name" />
-                  <Text fx:id="lastNameField" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Label styleClass="action_label" text="Last name" />
+                  <Label styleClass="action_label" fx:id="lastNameField" text="Text" />
                </children>
             </VBox>
             <VBox alignment="CENTER" layoutX="210.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <Label text="Floor" />
-                  <Text fx:id="floorField" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Label styleClass="action_label" text="Floor" />
+                  <Label styleClass="action_label" fx:id="floorField" text="Text" />
                </children>
             </VBox>
             <VBox alignment="CENTER" layoutX="10.0" layoutY="85.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label text="Room number" />
-                  <Text fx:id="roomNumberField" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Label styleClass="action_label" text="Room number" />
+                  <Label styleClass="action_label" fx:id="roomNumberField" text="Text" />
                </children>
             </VBox>
             <VBox alignment="CENTER" layoutX="210.0" layoutY="85.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
                <children>
-                  <Label text="Start date" />
-                  <Text fx:id="startDateField" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Label styleClass="action_label" text="Start date" />
+                  <Label styleClass="action_label" fx:id="startDateField" text="Text" />
                </children>
             </VBox>
             <VBox alignment="CENTER" layoutX="10.0" layoutY="160.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Label text="End date" />
-                  <Text fx:id="endDateFiled" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Label styleClass="action_label" text="End date" />
+                  <Label styleClass="action_label" fx:id="endDateFiled" text="Text" />
                </children>
             </VBox>
             <VBox alignment="CENTER" layoutX="210.0" layoutY="160.0" prefHeight="200.0" prefWidth="400.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
                <children>
-                  <Label text="Status" />
+                  <Label styleClass="action_label" text="Status" />
                   <ChoiceBox fx:id="statusBox" prefWidth="150.0" />
                </children>
             </VBox>
@@ -74,12 +74,12 @@
    </center>
    <bottom>
       <HBox prefHeight="25.0" prefWidth="200.0" BorderPane.alignment="CENTER_RIGHT">
-         <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleOkAction" text="Ok">
+         <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleOkAction" text="Ok" styleClass="action_button">
             <HBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </HBox.margin>
          </Button>
-         <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleCancelAction" text="Cancel">
+         <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleCancelAction" text="Cancel" styleClass="action_button">
             <HBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </HBox.margin>

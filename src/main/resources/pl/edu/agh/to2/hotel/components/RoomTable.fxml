@@ -5,9 +5,9 @@
 
 <fx:root type="VBox" xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"
-         prefHeight="480.0" prefWidth="600.0" minHeight="500" minWidth="600">
+         prefHeight="420.0" prefWidth="600.0" minHeight="420" minWidth="600" maxHeight="420">
 
-        <TableView fx:id="tableView" BorderPane.alignment="CENTER" minHeight="380" minWidth="600">
+        <TableView fx:id="tableView" BorderPane.alignment="CENTER" minWidth="600">
             <columns>
                 <TableColumn fx:id="roomNumberColumn" text="Room number"/>
                 <TableColumn fx:id="floorColumn" text="Floor"/>

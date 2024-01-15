@@ -1,3 +1,7 @@
+.main_app_container {
+    -fx-background-color: #242424;
+}
+
 .action_button {
     -fx-background-color: #005391;
     -fx-border-radius: 8;

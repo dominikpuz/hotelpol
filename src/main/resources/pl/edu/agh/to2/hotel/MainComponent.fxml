@@ -7,31 +7,24 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="mainAppContainer" styleClass="main_app_container" prefHeight="600.0" prefWidth="1000.0" stylesheets="@navbar.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.fxml.components.MainComponent">
+<AnchorPane fx:id="mainAppContainer" styleClass="main_app_container"  stylesheets="@navbar.css" prefHeight="520.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.fxml.components.MainComponent">
     <VBox alignment="TOP_CENTER" spacing="10" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <!-- Header Navigation Bar -->
         <HBox fx:id="mainNavigationPanel" alignment="CENTER" prefHeight="59.0" prefWidth="623.0" spacing="10" styleClass="main_navigation_panel" VBox.vgrow="ALWAYS">
-            <Button fx:id="hotelPolNavButton" onAction="#handleHotelPolNavButtonClick" text="HotelPOL">
+            <Button fx:id="roomsNavButton" onAction="#handleRoomsNavButtonClick" text="Rooms">
                 <HBox.margin>
                     <Insets left="5.0" right="5.0" />
                 </HBox.margin>
                 <styleClass>
-                    <String fx:value="hotel_pol_nav_button" />
+                    <String fx:value="rooms_nav_button" />
                     <String fx:value="selected_tab" />
-                </styleClass></Button>
-            <Button fx:id="roomsNavButton" onAction="#handleRoomsNavButtonClick" styleClass="rooms_nav_button" text="Rooms">
-                <HBox.margin>
-                    <Insets left="5.0" right="5.0" />
-                </HBox.margin></Button>
+                </styleClass>
+            </Button>
             <Button fx:id="reservationsNavButton" onAction="#handleReservationsNavButtonClick" styleClass="reservations_nav_button" text="Reservations">
                 <HBox.margin>
                     <Insets left="5.0" right="5.0" />
                 </HBox.margin></Button>
             <Button fx:id="customersNavButton" onAction="#handleCustomersNavButtonClick" styleClass="customers_nav_button" text="Customers">
-                <HBox.margin>
-                    <Insets left="5.0" right="5.0" />
-                </HBox.margin></Button>
-            <Button fx:id="reportsNavButton" onAction="#handleReportsNavButtonClick" styleClass="reports_nav_button" text="Reports">
                 <HBox.margin>
                     <Insets left="5.0" right="5.0" />
                 </HBox.margin></Button>

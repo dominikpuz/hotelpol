@@ -20,16 +20,16 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label text="Customer" />
-                <Label text="Room" GridPane.rowIndex="1" />
-                <Label text="Start date:" GridPane.rowIndex="2" />
-                <Label text="End date:" GridPane.rowIndex="3" />
-                <Label text="Reserv. state:" GridPane.rowIndex="4" />
+                <Label text="Customer" styleClass="action_label"/>
+                <Label text="Room" GridPane.rowIndex="1" styleClass="action_label" />
+                <Label text="Start date:" GridPane.rowIndex="2" styleClass="action_label" />
+                <Label text="End date:" GridPane.rowIndex="3" styleClass="action_label" />
+                <Label text="Reserv. state:" GridPane.rowIndex="4" styleClass="action_label" />
                 <fx:include fx:id="customerPickerSummary" source="CustomerPickerSummary.fxml" GridPane.columnIndex="1" />
                 <fx:include fx:id="roomPickerSummary" source="RoomPickerSummary.fxml" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <ChoiceBox fx:id="reservationState" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleReset" text="Reset" GridPane.rowIndex="5" />
-                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleFilter" text="Filter" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleReset" text="Reset" GridPane.rowIndex="5" styleClass="action_button" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleFilter" text="Filter" GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="action_button" />
             <DatePicker fx:id="startDate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <DatePicker fx:id="endDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             </children>

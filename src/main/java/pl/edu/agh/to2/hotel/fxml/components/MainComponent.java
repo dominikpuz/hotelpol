@@ -44,13 +44,11 @@ public class MainComponent implements IFxmlPresenter {
 
     @FXML
     private void initialize() {
-        navigationButtons.put(NavigationRoute.HOTEL_POL, hotelPolNavButton);
         navigationButtons.put(NavigationRoute.ROOMS, roomsNavButton);
         navigationButtons.put(NavigationRoute.RESERVATIONS, reservationsNavButton);
         navigationButtons.put(NavigationRoute.CUSTOMERS, customersNavButton);
-        navigationButtons.put(NavigationRoute.REPORTS, reportsNavButton);
 
-        loadContentArea(NavigationRoute.HOTEL_POL);
+        loadContentArea(NavigationRoute.ROOMS);
     }
 
     private void handleNavigationButtonClick(ActionEvent event, NavigationRoute type) {
@@ -74,11 +72,6 @@ public class MainComponent implements IFxmlPresenter {
     }
 
     @FXML
-    private void handleHotelPolNavButtonClick(ActionEvent event) {
-        handleNavigationButtonClick(event, NavigationRoute.HOTEL_POL);
-    }
-
-    @FXML
     private void handleRoomsNavButtonClick(ActionEvent event) {
         handleNavigationButtonClick(event, NavigationRoute.ROOMS);
     }
@@ -93,17 +86,10 @@ public class MainComponent implements IFxmlPresenter {
         handleNavigationButtonClick(event, NavigationRoute.CUSTOMERS);
     }
 
-    @FXML
-    private void handleReportsNavButtonClick(ActionEvent event) {
-        handleNavigationButtonClick(event, NavigationRoute.REPORTS);
-    }
-
     private enum NavigationRoute {
-        HOTEL_POL(FxmlContextType.CUSTOMER_OVERVIEW),
         ROOMS(FxmlContextType.ROOM_OVERVIEW),
         RESERVATIONS(FxmlContextType.RESERVATION_OVERVIEW),
-        CUSTOMERS(FxmlContextType.CUSTOMER_OVERVIEW),
-        REPORTS(FxmlContextType.CUSTOMER_OVERVIEW);
+        CUSTOMERS(FxmlContextType.CUSTOMER_OVERVIEW);
 
         public final FxmlContextType contextType;
 

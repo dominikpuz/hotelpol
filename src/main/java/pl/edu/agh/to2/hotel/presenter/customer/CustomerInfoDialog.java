@@ -1,6 +1,7 @@
 package pl.edu.agh.to2.hotel.presenter.customer;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.model.Customer;
@@ -9,13 +10,13 @@ import pl.edu.agh.to2.hotel.presenter.InfoDialogPresenter;
 @Component
 public class CustomerInfoDialog extends InfoDialogPresenter<Customer> {
     @FXML
-    public Text firstName;
+    public Label firstName;
     @FXML
-    public Text lastName;
+    public Label lastName;
     @FXML
-    public Text email;
+    public Label email;
     @FXML
-    public Text phoneNumber;
+    public Label phoneNumber;
 
     @Override
     public void loadData() {

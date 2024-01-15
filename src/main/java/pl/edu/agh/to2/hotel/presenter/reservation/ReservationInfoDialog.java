@@ -2,6 +2,7 @@ package pl.edu.agh.to2.hotel.presenter.reservation;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import javafx.util.converter.LocalDateStringConverter;
 import org.springframework.stereotype.Component;
@@ -15,17 +16,17 @@ import java.time.format.DateTimeFormatter;
 public class ReservationInfoDialog extends ActionDialogPresenter<Reservation, ReservationState> {
 
     @FXML
-    public Text firstNameField;
+    public Label firstNameField;
     @FXML
-    public Text lastNameField;
+    public Label lastNameField;
     @FXML
-    public Text floorField;
+    public Label floorField;
     @FXML
-    public Text roomNumberField;
+    public Label roomNumberField;
     @FXML
-    public Text startDateField;
+    public Label startDateField;
     @FXML
-    public Text endDateFiled;
+    public Label endDateFiled;
     @FXML
     public ChoiceBox<ReservationState> statusBox;
     private static final String DATE_PATTERN = "yyyy-MM-dd";

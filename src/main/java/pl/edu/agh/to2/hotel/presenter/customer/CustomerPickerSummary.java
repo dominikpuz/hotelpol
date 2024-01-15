@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lombok.Getter;
@@ -24,7 +25,7 @@ public class CustomerPickerSummary {
     @FXML
     private Button addNewCustomerButton;
     @FXML
-    private Text customerSummary;
+    private Label customerSummary;
 
 
     @Getter
