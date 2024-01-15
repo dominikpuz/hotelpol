@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<fx:root type="VBox" alignment="CENTER" maxWidth="-Infinity" prefHeight="400.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+ <children>
+  <TextField fx:id="textField" />
+  <Label fx:id="errorLabel" maxWidth="1.7976931348623157E308" text="Label" VBox.vgrow="SOMETIMES" textFill="#b90000">
+   <VBox.margin>
+    <Insets />
+   </VBox.margin>
+   <padding>
+    <Insets left="15.0" top="5.0" />
+   </padding>
+  </Label>
+ </children>
+ <padding>
+  <Insets top="20.0" />
+ </padding>
+</fx:root>
