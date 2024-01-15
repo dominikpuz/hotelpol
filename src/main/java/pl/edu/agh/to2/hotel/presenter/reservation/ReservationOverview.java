@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import org.springframework.stereotype.Component;
+import pl.edu.agh.to2.hotel.fxml.IFxmlPresenter;
 import pl.edu.agh.to2.hotel.fxml.components.ReservationTable;
 import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.model.Reservation;
@@ -13,7 +14,7 @@ import pl.edu.agh.to2.hotel.presenter.MainView;
 import pl.edu.agh.to2.hotel.service.ReservationService;
 
 @Component
-public class ReservationOverview {
+public class ReservationOverview implements IFxmlPresenter {
     @FXML
     public Button showCustomerButton;
     @FXML

@@ -1,0 +1,28 @@
+.main_app_container {
+    -fx-background-color: #242424;
+}
+
+.main_navigation_panel {
+    -fx-background-color: #1b1b1b;
+    -fx-padding: 12 20;
+}
+
+.main_navigation_panel > * {
+    -fx-background-color: "transparent";
+    -fx-text-fill: #fff;
+    -fx-font-size: 15;
+    -fx-border-color: #fff;
+    -fx-border-radius: 8;
+}
+
+.main_navigation_panel > *:hover {
+    -fx-background-color: #39393b;
+}
+
+.selected_tab {
+    -fx-background-color: #271172;
+}
+
+.selected_tab:hover {
+    -fx-background-color: #271172;
+}

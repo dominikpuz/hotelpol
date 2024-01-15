@@ -9,7 +9,11 @@ public enum FxmlContextType {
     CUSTOMER_PICKER("CustomerPicker"),
     ROOM_PICKER("RoomPicker"),
     RESERVATION_INFO_DIALOG("ReservationInfoDialog"),
-    RESERVATION_EDIT_DIALOG("ReservationEditDialog");
+    RESERVATION_EDIT_DIALOG("ReservationEditDialog"),
+    MAIN_COMPONENT("MainComponent"),
+    CUSTOMER_OVERVIEW("CustomerOverviewPane"),
+    ROOM_OVERVIEW("RoomOverviewPane"),
+    RESERVATION_OVERVIEW("ReservationOverviewPane");
 
     public final String fileName;
 
