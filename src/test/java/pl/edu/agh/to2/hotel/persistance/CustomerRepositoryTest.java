@@ -97,7 +97,7 @@ public class CustomerRepositoryTest {
         prepareCustomerFilterTest();
         CustomerFilter filter = CustomerFilter.builder().firstName("Ale").build();
 
-        List<CustomerEntity> customers = customerRepository.searchCustomers(filter, PageRequest.of(0, 10));
+        List<CustomerEntity> customers = customerRepository.searchCustomers(filter, PageRequest.of(0, 10)).getContent();
 
         assertEquals(2, customers.size());
         assertTrue(customers.contains(aleksandraKrawiec));
@@ -109,7 +109,7 @@ public class CustomerRepositoryTest {
         prepareCustomerFilterTest();
         CustomerFilter filter = CustomerFilter.builder().lastName("Ryb").build();
 
-        List<CustomerEntity> customers = customerRepository.searchCustomers(filter, PageRequest.of(0, 10));
+        List<CustomerEntity> customers = customerRepository.searchCustomers(filter, PageRequest.of(0, 10)).getContent();
 
         assertEquals(1, customers.size());
         assertTrue(customers.contains(alexRyba));
@@ -120,7 +120,7 @@ public class CustomerRepositoryTest {
         prepareCustomerFilterTest();
         CustomerFilter filter = CustomerFilter.builder().phone("124").build();
 
-        List<CustomerEntity> customers = customerRepository.searchCustomers(filter, PageRequest.of(0, 10));
+        List<CustomerEntity> customers = customerRepository.searchCustomers(filter, PageRequest.of(0, 10)).getContent();
 
         assertEquals(1, customers.size());
         assertTrue(customers.contains(aleksandraKrawiec));
@@ -131,7 +131,7 @@ public class CustomerRepositoryTest {
         prepareCustomerFilterTest();
         CustomerFilter filter = CustomerFilter.builder().email("alex123").build();
 
-        List<CustomerEntity> customers = customerRepository.searchCustomers(filter, PageRequest.of(0, 10));
+        List<CustomerEntity> customers = customerRepository.searchCustomers(filter, PageRequest.of(0, 10)).getContent();
 
         assertEquals(1, customers.size());
         assertTrue(customers.contains(alexRyba));
@@ -142,7 +142,7 @@ public class CustomerRepositoryTest {
         prepareCustomerFilterTest();
         CustomerFilter filter = CustomerFilter.builder().firstName("Ale").phone("123").build();
 
-        List<CustomerEntity> customers = customerRepository.searchCustomers(filter, PageRequest.of(0, 10));
+        List<CustomerEntity> customers = customerRepository.searchCustomers(filter, PageRequest.of(0, 10)).getContent();
 
         assertEquals(1, customers.size());
         assertTrue(customers.contains(alexRyba));
