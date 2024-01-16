@@ -8,12 +8,11 @@ import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.model.Reservation;
 import pl.edu.agh.to2.hotel.persistance.reservation.ReservationState;
 import pl.edu.agh.to2.hotel.presenter.ActionDialogPresenter;
-import pl.edu.agh.to2.hotel.service.ReservationService;
 
 import java.time.format.DateTimeFormatter;
 
 @Component
-public class ReservationInfoDialog extends ActionDialogPresenter<Reservation> {
+public class ReservationInfoDialog extends ActionDialogPresenter<Reservation, ReservationState> {
 
     @FXML
     public Text firstNameField;
@@ -29,12 +28,10 @@ public class ReservationInfoDialog extends ActionDialogPresenter<Reservation> {
     public Text endDateFiled;
     @FXML
     public ChoiceBox<ReservationState> statusBox;
-    private final ReservationService reservationService;
     private static final String DATE_PATTERN = "yyyy-MM-dd";
     private final LocalDateStringConverter converter;
 
-    public ReservationInfoDialog(ReservationService reservationService) {
-        this.reservationService = reservationService;
+    public ReservationInfoDialog() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
         converter = new LocalDateStringConverter(formatter, formatter);
     }
@@ -60,7 +57,6 @@ public class ReservationInfoDialog extends ActionDialogPresenter<Reservation> {
     public boolean validateAndSubmitModel() {
         ReservationState newState = statusBox.getValue();
         if(newState == model.getState()) return true;
-        reservationService.updateReservationState(model, newState);
-        return true;
+        return tryDoDefaultAction(newState);
     }
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import pl.edu.agh.to2.hotel.fxml.components.RoomTable?>
+<BorderPane prefHeight="476.0" prefWidth="831.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.room.RoomPicker">
+    <top>
+        <VBox alignment="CENTER" prefHeight="25.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+    </top>
+    <center>
+        <RoomTable fx:id="roomTable"/>
+    </center>
+    <left>
+        <VBox prefHeight="258.0" prefWidth="25.0" BorderPane.alignment="CENTER" />
+    </left>
+    <right>
+        <fx:include fx:id="roomFiltering" source="RoomFilteringBox.fxml" />
+    </right>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Button fx:id="okButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleOkAction" text="Ok">
+                <HBox.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </HBox.margin>
+            </Button>
+            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleCancelAction" text="Cancel">
+                <HBox.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </HBox.margin>
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,42 +1,60 @@
 package pl.edu.agh.to2.hotel.presenter.reservation;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.model.Reservation;
 import pl.edu.agh.to2.hotel.model.Room;
+import pl.edu.agh.to2.hotel.model.filters.RoomFilter;
 import pl.edu.agh.to2.hotel.presenter.ActionDialogPresenter;
-import pl.edu.agh.to2.hotel.service.CustomerService;
-import pl.edu.agh.to2.hotel.service.RoomService;
-
-import java.util.Optional;
+import pl.edu.agh.to2.hotel.presenter.customer.CustomerPickerSummary;
+import pl.edu.agh.to2.hotel.presenter.room.RoomPickerSummary;
 
 @Component
-public class ReservationActionDialog extends ActionDialogPresenter<Reservation> {
+public class ReservationActionDialog extends ActionDialogPresenter<Reservation, Reservation> {
     @FXML
-    public DatePicker startDateField;
+    private DatePicker startDateField;
     @FXML
-    public DatePicker endDateField;
+    private DatePicker endDateField;
     @FXML
-    public TextField roomField;
+    public RoomPickerSummary roomPickerSummaryController;
     @FXML
-    public TextField customerField;
-    private final CustomerService customerService;
-    private final RoomService roomService;
+    public CustomerPickerSummary customerPickerSummaryController;
 
-    public ReservationActionDialog(CustomerService customerService, RoomService roomService) {
-        this.customerService = customerService;
-        this.roomService = roomService;
+    @FXML
+    private void initialize() {
+        roomPickerSummaryController.getSelectRoomButton().disableProperty().bind(
+                Bindings.isNull(startDateField.valueProperty())
+                        .or(Bindings.isNull(endDateField.valueProperty()))
+        );
+
+        startDateField.valueProperty().addListener
+                ((observable, oldValue, newValue) -> {
+                    RoomFilter rf = RoomFilter.builder()
+                            .startAvailabilityDate(newValue)
+                            .endAvailabilityDate(endDateField.getValue())
+                            .build();
+                    roomPickerSummaryController.getPartialFilter().set(rf);
+                });
+        endDateField.valueProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    RoomFilter rf = RoomFilter.builder()
+                            .startAvailabilityDate(startDateField.getValue())
+                            .endAvailabilityDate(newValue)
+                            .build();
+                    roomPickerSummaryController.getPartialFilter().set(rf);
+                });
+
+        roomPickerSummaryController.setDialogStage(dialogStage);
+        customerPickerSummaryController.setDialogStage(dialogStage);
     }
 
     @Override
     public void loadData() {
         startDateField.setValue(model.getStartDate());
         endDateField.setValue(model.getEndDate());
-        roomField.textProperty().setValue(String.valueOf(model.getRoom().getId()));
-        customerField.textProperty().setValue(String.valueOf(model.getCustomer().getId()));
     }
 
     @Override
@@ -46,15 +64,14 @@ public class ReservationActionDialog extends ActionDialogPresenter<Reservation> 
 
     @Override
     public boolean validateAndSubmitModel() {
-        Optional<Customer> customer = customerService.findCustomerById(Long.parseLong(customerField.getText()));
-        Optional<Room> room = roomService.findRoomById(Long.parseLong(roomField.getText()));
-        if(customer.isEmpty() || room.isEmpty()) return false;
+        Customer customer = customerPickerSummaryController.getSelectedCustomer().get();
+        Room room = roomPickerSummaryController.getSelectedRoom().get();
 
         model.setStartDate(startDateField.getValue());
         model.setEndDate(endDateField.getValue());
-        model.setCustomer(customer.get());
-        model.setRoom(room.get());
+        model.setCustomer(customer);
+        model.setRoom(room);
 
-        return true;
+        return tryDoDefaultAction(model);
     }
 }

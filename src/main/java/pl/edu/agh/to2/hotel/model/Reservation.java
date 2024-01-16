@@ -35,5 +35,6 @@ public class Reservation implements IPresentableModel {
 
     public Reservation() {
         id = -1;
+        this.state = ReservationState.CREATED;
     }
 }

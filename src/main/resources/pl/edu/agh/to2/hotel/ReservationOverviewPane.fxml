@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
+<?import pl.edu.agh.to2.hotel.fxml.components.ReservationTable?>
 <BorderPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.reservation.ReservationOverview">
    <top>
       <HBox alignment="CENTER_LEFT" prefWidth="150.0" BorderPane.alignment="CENTER">
@@ -46,18 +47,9 @@
       </HBox>
    </top>
    <center>
-      <TableView fx:id="reservationTable" BorderPane.alignment="CENTER">
-         <columns>
-            <TableColumn fx:id="roomNumberColumn" text="Room number" />
-            <TableColumn fx:id="customerColumn" text="Customer" />
-            <TableColumn fx:id="startDateColumn" text="Start date" />
-            <TableColumn fx:id="endDateColumn" text="End date" />
-            <TableColumn fx:id="rentPriceColumn" text="Rent price" />
-            <TableColumn fx:id="reservationStateColumn" text="Reservation state" />
-         </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
+      <ReservationTable fx:id="reservationTable"/>
    </center>
+   <right>
+      <fx:include fx:id="reservationFiltering" source="ReservationFilteringBox.fxml"/> <!-- The "unresolved reference" can be ignored, because we only need this element's controller -->
+   </right>
 </BorderPane>

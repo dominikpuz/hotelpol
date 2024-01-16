@@ -5,14 +5,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane prefHeight="520.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="pl.edu.agh.to2.hotel.presenter.MainView">
-    <TabPane prefHeight="400.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
-        <Tab fx:id="reservationsTab" text="Reservations">
-            <fx:include fx:id="reservationsTabPage" source="ReservationOverviewPane.fxml"/>
+    <TabPane tabClosingPolicy="UNAVAILABLE">
+        <Tab text="Reservations">
+            <fx:include source="ReservationOverviewPane.fxml"/>
         </Tab>
         <Tab fx:id="roomsTab" text="Rooms">
-            <fx:include fx:id="roomsTabPage" source="RoomOverviewPane.fxml"/>
+            <fx:include source="RoomOverviewPane.fxml"/>
+        </Tab>
+        <Tab text="Customers">
+            <fx:include source="CustomerOverviewPane.fxml"/>
         </Tab>
     </TabPane>
 </AnchorPane>

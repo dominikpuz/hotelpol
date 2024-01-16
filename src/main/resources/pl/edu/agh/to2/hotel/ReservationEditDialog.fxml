@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.reservation.ReservationActionDialog">
+<BorderPane prefHeight="200.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.reservation.ReservationActionDialog">
     <center>
         <GridPane BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -18,18 +18,15 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <DatePicker fx:id="startDateField" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                <DatePicker fx:id="endDateField" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                <TextField fx:id="roomField" maxWidth="100" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
-                <TextField fx:id="customerField" maxWidth="100" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                    <GridPane.margin>
-                        <Insets />
-                    </GridPane.margin>
-                </TextField>
-                <Label text="Room id" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                <Label text="Customer id" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                <Label text="Start date" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                <Label text="End date" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                <DatePicker fx:id="startDateField" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+                <DatePicker fx:id="endDateField" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                <Label text="Room" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                <Label text="Customer" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                <Label text="Start date" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Label text="End date" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+
+                <fx:include fx:id="roomPickerSummary" source="RoomPickerSummary.fxml" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <fx:include fx:id="customerPickerSummary" source="CustomerPickerSummary.fxml" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             </children>
         </GridPane>
     </center>

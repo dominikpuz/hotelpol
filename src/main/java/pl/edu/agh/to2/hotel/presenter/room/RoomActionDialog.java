@@ -6,13 +6,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.springframework.stereotype.Component;
+import pl.edu.agh.to2.hotel.fxml.validation.RegexValidator;
+import pl.edu.agh.to2.hotel.fxml.validation.ValidationTextField;
 import pl.edu.agh.to2.hotel.model.Room;
 import pl.edu.agh.to2.hotel.persistance.room.BedType;
 import pl.edu.agh.to2.hotel.persistance.room.RoomStandard;
 import pl.edu.agh.to2.hotel.presenter.ActionDialogPresenter;
 
+import java.util.List;
+
 @Component
-public class RoomActionDialog extends ActionDialogPresenter<Room> {
+public class RoomActionDialog extends ActionDialogPresenter<Room, Room> {
     @FXML
     public Button addBedButton;
     @FXML
@@ -22,17 +26,13 @@ public class RoomActionDialog extends ActionDialogPresenter<Room> {
     @FXML
     public ChoiceBox<RoomStandard> standardBox;
     @FXML
-    public TextField roomNumberField;
+    public ValidationTextField roomNumberField;
     @FXML
-    public TextField floorField;
+    public ValidationTextField floorField;
     @FXML
-    public TextField rentPriceField;
+    public ValidationTextField rentPriceField;
     @FXML
     public Button removeBedButton;
-
-    public RoomActionDialog() {
-        approved = false;
-    }
 
     @FXML
     private void initialize() {
@@ -42,6 +42,9 @@ public class RoomActionDialog extends ActionDialogPresenter<Room> {
         bedList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         removeBedButton.disableProperty().bind(Bindings.isEmpty(bedList.getSelectionModel().getSelectedItems()));
         bedChoiceBox.setValue(BedType.SINGLE_BED);
+
+        floorField.addValidation(new RegexValidator("^[1-9]\\d*$", "Niepoprawne piętro!"));
+        rentPriceField.addValidation(new RegexValidator("^[1-9]\\d*(\\.\\d+)?$", "Niepoprawna cena!"));
     }
 
     @Override
@@ -60,12 +63,17 @@ public class RoomActionDialog extends ActionDialogPresenter<Room> {
 
     @Override
     public boolean validateAndSubmitModel() {
+        List<ValidationTextField> form = List.of(floorField, roomNumberField, rentPriceField);
+        form.forEach(ValidationTextField::validateField);
+        boolean isFormValid = form.stream().allMatch(ValidationTextField::isValid);
+        if(!isFormValid) return false;
         model.setRoomNumber(roomNumberField.getText());
         model.setFloor(Integer.parseInt(floorField.getText()));
         model.setRoomStandard(standardBox.getValue());
         model.setRentPrice(Double.parseDouble(rentPriceField.getText()));
         model.setBeds(bedList.getItems());
-        return true;
+
+        return tryDoAction(() -> onSave.accept(model));
     }
 
     @FXML
