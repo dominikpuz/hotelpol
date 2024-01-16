@@ -1,13 +1,10 @@
 # HotelPol
-
 Repository for Object-oriented technologies course at AGH UST.
 
 ## Topic of the project
-
 Application for managing rooms and hotel reservations.
 
 ## Authors
-
  - Dominik Puz
  - Gracjan Filipek
  - Krzysztof Usnarski
@@ -33,11 +30,9 @@ Application for managing rooms and hotel reservations.
 ![database diagram](documentation/database_diagram.png)
 
 ## Milestones
-
 Below we describe layers developed and features added at each milestone.
 
 ### Milestone 1
-
 This milestone was all about project setup and persistence layer.
 
 Things we have dealt with:
@@ -51,7 +46,6 @@ Things we have dealt with:
   - spiced everything up with a hefty amount of unit tests
 
 ### Milestone 2
-
 The goal for this milestone was to have a simple but complete data flow
 from the persistence layer all the way to the GUI and vice versa.
 
@@ -73,8 +67,25 @@ Features we have introduced:
   - simple graphical user interface
     - defined scenes (main view, overviews, dialogs) with .fxml files
 
-## How to Run
+### Milestone 3
+In this milestone our goal was to implement some remaining features,
+update GUI, add data filtering, create table pagination and introduce exception handling.
 
+What we have managed to do:
+  - GUI
+    - finished customer overview
+    - reworked dialog for adding/editing reservations
+    - room and customer pickers
+    - data overview pagination
+    - form validation
+    - filtering for overviews and pickers
+  - service layer
+    - support for pagination
+    - support for data filtering
+    - data validation (creating, updating etc.)
+  - exception handling and appropriate popups
+
+## How to Run
 To run the HotelPol application, follow these steps:
 
 1. Download or clone the repository to your local machine.
@@ -102,5 +113,3 @@ Profile used for production purposes. Connects to an existing Microsoft SQL Serv
 3. Now, just like with the [development profile](#development---dev), you should create a run configuration as shown below:
 ![production run configuration](documentation/prod_run_config.png)
 4. Finally, you can execute the application with the "prod" profile. It will connect to and use the specified Microsoft SQL Server database.
-
-    
