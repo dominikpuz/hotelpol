@@ -8,37 +8,42 @@
 <?import javafx.scene.layout.HBox?>
 
 <?import pl.edu.agh.to2.hotel.fxml.components.ReservationTable?>
-<BorderPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.reservation.ReservationOverview">
+<BorderPane prefHeight="470.0" stylesheets="@base_app_style.css" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.reservation.ReservationOverview">
    <top>
       <HBox alignment="CENTER_LEFT" prefWidth="150.0" BorderPane.alignment="CENTER">
          <opaqueInsets>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
          </opaqueInsets>
          <Button fx:id="addReservationButton" alignment="TOP_CENTER" mnemonicParsing="false"
+                 styleClass="action_button"
                  onAction="#handleAddReservation" text="Add reservation">
             <HBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </HBox.margin>
          </Button>
          <Button fx:id="editReservationButton" alignment="TOP_CENTER" mnemonicParsing="false"
+                 styleClass="action_button"
                  onAction="#handleEditReservation" text="Edit reservation">
             <HBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </HBox.margin>
          </Button>
          <Button fx:id="showReservationButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Show reservation info"
+                 styleClass="action_button"
                  onAction="#handleShowReservation">
             <HBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </HBox.margin>
          </Button>
          <Button fx:id="showCustomerButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Show customer info"
+                 styleClass="action_button"
                  onAction="#handleShowCustomer">
             <HBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </HBox.margin>
          </Button>
          <Button fx:id="showRoomButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Show room info"
+                 styleClass="action_button"
                  onAction="#handleShowRoom">
             <HBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

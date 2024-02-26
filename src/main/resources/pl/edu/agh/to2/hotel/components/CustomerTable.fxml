@@ -5,9 +5,9 @@
 
 <fx:root type="VBox" xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"
-         prefHeight="440.0" prefWidth="600.0" minHeight="440" minWidth="600">
+         prefHeight="420.0" prefWidth="600.0" minHeight="420" minWidth="600" maxHeight="420">
         <!-- Your existing TableView component -->
-        <TableView fx:id="tableView" minHeight="380" minWidth="600">
+        <TableView fx:id="tableView" minWidth="600">
             <columns>
                 <TableColumn fx:id="firstNameColumn" text="First name"/>
                 <TableColumn fx:id="lastNameColumn" text="Last name"/>

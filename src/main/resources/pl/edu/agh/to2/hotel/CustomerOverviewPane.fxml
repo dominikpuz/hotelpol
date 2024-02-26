@@ -6,23 +6,21 @@
 <?import javafx.scene.layout.HBox?>
 
 <?import pl.edu.agh.to2.hotel.fxml.components.CustomerTable?>
-<BorderPane prefHeight="520.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="pl.edu.agh.to2.hotel.presenter.customer.CustomerOverview">
+
+<BorderPane prefHeight="470.0" prefWidth="1000.0" stylesheets="@base_app_style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.customer.CustomerOverview">
     <top>
         <HBox alignment="CENTER_LEFT" prefWidth="150.0" BorderPane.alignment="CENTER">
             <opaqueInsets>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </opaqueInsets>
-            <Button fx:id="addCustomerButton" alignment="TOP_CENTER" mnemonicParsing="false"
-                    onAction="#handleAddCustomer" text="Add customer">
+            <Button fx:id="addCustomerButton" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleAddCustomer" styleClass="action_button" text="Add customer">
                 <HBox.margin>
-                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </HBox.margin>
             </Button>
-            <Button fx:id="editCustomerButton" alignment="TOP_CENTER" mnemonicParsing="false"
-                    onAction="#handleEditCustomer" text="Edit customer">
+            <Button fx:id="editCustomerButton" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleEditCustomer" styleClass="action_button" text="Edit customer">
                 <HBox.margin>
-                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </HBox.margin>
             </Button>
         </HBox>
@@ -31,6 +29,6 @@
         <CustomerTable fx:id="customerTable"/>
     </center>
     <right>
-        <fx:include fx:id="customerFiltering" source="CustomerFilteringBox.fxml"/> <!-- The "unresolved reference" can be ignored, because we only need this element's controller -->
+        <fx:include fx:id="customerFiltering" source="CustomerFilteringBox.fxml" /> <!-- The "unresolved reference" can be ignored, because we only need this element's controller -->
     </right>
 </BorderPane>

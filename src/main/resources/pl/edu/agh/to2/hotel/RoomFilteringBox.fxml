@@ -20,18 +20,18 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Room name:" />
-            <Label text="Floor number:" GridPane.rowIndex="1" />
-            <Label text="Standard:" GridPane.rowIndex="2" />
-            <Label text="Min rent price:" GridPane.rowIndex="3" />
-            <Label text="Max rent price:" GridPane.rowIndex="4" />
+            <Label text="Room name:" styleClass="action_label" />
+            <Label text="Floor number:" GridPane.rowIndex="1" styleClass="action_label" />
+            <Label text="Standard:" GridPane.rowIndex="2" styleClass="action_label" />
+            <Label text="Min rent price:" GridPane.rowIndex="3" styleClass="action_label" />
+            <Label text="Max rent price:" GridPane.rowIndex="4" styleClass="action_label" />
             <TextField fx:id="roomName" GridPane.columnIndex="1" />
             <TextField fx:id="floorNumber" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ChoiceBox fx:id="roomStandard" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="minPrice" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="maxPrice" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleReset" text="Reset" GridPane.rowIndex="5" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleFilter" text="Filter" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleReset" text="Reset" GridPane.rowIndex="5" styleClass="action_button"/>
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleFilter" text="Filter" GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="action_button" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

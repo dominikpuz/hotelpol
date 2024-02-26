@@ -5,13 +5,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import org.springframework.stereotype.Component;
+import pl.edu.agh.to2.hotel.fxml.IFxmlPresenter;
 import pl.edu.agh.to2.hotel.fxml.components.CustomerTable;
 import pl.edu.agh.to2.hotel.model.Customer;
 import pl.edu.agh.to2.hotel.presenter.MainView;
 import pl.edu.agh.to2.hotel.service.CustomerService;
 
 @Component
-public class CustomerOverview {
+public class CustomerOverview implements IFxmlPresenter {
 
     @FXML
     private CustomerTable customerTable;

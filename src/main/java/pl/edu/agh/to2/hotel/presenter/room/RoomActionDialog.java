@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.to2.hotel.fxml.validation.RegexValidator;
+import pl.edu.agh.to2.hotel.fxml.validation.ValidationResult;
 import pl.edu.agh.to2.hotel.fxml.validation.ValidationTextField;
 import pl.edu.agh.to2.hotel.model.Room;
 import pl.edu.agh.to2.hotel.persistance.room.BedType;
@@ -36,9 +37,8 @@ public class RoomActionDialog extends ActionDialogPresenter<Room, Room> {
 
     @FXML
     private void initialize() {
-        standardBox.getItems().addAll(RoomStandard.FAMILY, RoomStandard.BUSINESS,
-                RoomStandard.CLASSIC, RoomStandard.EXCLUSIVE);
-        bedChoiceBox.getItems().addAll(BedType.DOUBLE_BED, BedType.KID_BED, BedType.SINGLE_BED);
+        standardBox.getItems().addAll(RoomStandard.values());
+        bedChoiceBox.getItems().addAll(BedType.values());
         bedList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         removeBedButton.disableProperty().bind(Bindings.isEmpty(bedList.getSelectionModel().getSelectedItems()));
         bedChoiceBox.setValue(BedType.SINGLE_BED);

@@ -9,18 +9,19 @@
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="pl.edu.agh.to2.hotel.presenter.room.RoomPickerSummary"
+      stylesheets="@base_app_style.css"
       alignment="CENTER_LEFT"
       prefHeight="100.0"
       prefWidth="200.0">
-    <Button fx:id="selectRoomButton" mnemonicParsing="false" onAction="#handleSelectRoom"
+    <Button fx:id="selectRoomButton" mnemonicParsing="false" onAction="#handleSelectRoom" styleClass="action_button"
             text="Select room">
         <HBox.margin>
             <Insets bottom="5.0" right="5.0" top="5.0"/>
         </HBox.margin>
     </Button>
-    <Text fx:id="roomSummary" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+    <Label fx:id="roomSummary" text="Text" styleClass="action_label">
         <HBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
         </HBox.margin>
-    </Text>
+    </Label>
 </HBox>

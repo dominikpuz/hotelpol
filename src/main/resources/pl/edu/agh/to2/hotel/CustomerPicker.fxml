@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import pl.edu.agh.to2.hotel.fxml.components.CustomerTable?>
-<BorderPane prefHeight="476.0" prefWidth="705.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.customer.CustomerPicker">
+<BorderPane stylesheets="@base_app_style.css" styleClass="main_app_container" prefHeight="476.0" prefWidth="705.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.hotel.presenter.customer.CustomerPicker">
     <top>
         <VBox alignment="CENTER" prefHeight="25.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
     </top>
@@ -20,12 +20,12 @@
     </right>
     <bottom>
         <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <Button fx:id="okButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleOkAction" text="Ok">
+            <Button fx:id="okButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleOkAction" text="Ok" styleClass="action_button">
                 <HBox.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </HBox.margin>
             </Button>
-            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleCancelAction" text="Cancel">
+            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleCancelAction" text="Cancel" styleClass="action_button">
                 <HBox.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </HBox.margin>
